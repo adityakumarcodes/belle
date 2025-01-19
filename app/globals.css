@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}  
+
+.section {
+  @apply h-screen bg-[lightsteelblue] flex flex-col justify-center items-center;
+}
+
+.btn {
+  @apply select-none text-white font-medium text-lg leading-5 rounded-md cursor-pointer m-2.5 p-2 border-none hover:brightness-150 bg-black disabled:bg-slate-300 disabled:text-gray-500 disabled:cursor-not-allowed hover:bg-gray-800;
+}
+
