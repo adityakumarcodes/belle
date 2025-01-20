@@ -22,7 +22,7 @@ export default function Home() {
 
     return <div>
         <div className="section" style={{ backgroundImage: "linear-gradient( 135deg, #FFF886 10%, #F072B6 100%)" }}>
-            <h1 className={`${font.className} text-6xl`}>Hero section</h1>
+            <h1 className={`${font.className} text-6xl`}>Hero</h1>
         </div>
 
         <div style={{ backgroundImage: "linear-gradient(to left bottom, #d16ba5, #c777b9, #ba83ca, #aa8fd8, #9a9ae1, #8aa7ec, #79b3f4, #69bff8, #52cffe, #41dfff, #46eefa, #5ffbf1)" }}
@@ -35,6 +35,5 @@ export default function Home() {
             <p> List some good</p>
             <h1 className={`${font.className} text-6xl`}>Projects</h1>
         </div >
-        {/* <ContactMe/>        */}        
     </div>;
 }

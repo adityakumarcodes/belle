@@ -41,7 +41,7 @@ const Page = ({ params }:PageProps) => {
   return (<div>
     <div className='bg-gray-200 p-5'>
       <div className='text-center my-24'>
-        <h1 className={`text-4xl sm:text-6xl max-w-[800px] mx-auto ${font.className}`}>{data.title}</h1>
+        <h1 className={`text-5xl sm:text-6xl max-w-[800px] mx-auto text-balance ${font.className}`}>{data.title}</h1>
         <Image className='mx-auto mt-6 border border-white rounded-full' src={data.authorImg} width={60} height={60} alt={''} />
         <p className='mt-1 pb-2 text-lg max-w-[740px] mx-auto'>{data.author}</p>
       </div>

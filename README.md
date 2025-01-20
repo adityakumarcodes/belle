@@ -5,7 +5,7 @@
 - Deploy to [Vercel Platform](https://vercel.com) from the creators of Next.js.
 
 ## Goals
-1. Landing page has animation,bento,3d,fast,responsive
+1. Landing page has animation,bento,3d,responsive
 2. Auth 
 3. Contact form
 4. Dark mode
