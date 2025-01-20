@@ -1,4 +1,5 @@
-'use client'
+'use client';
+
 import { useState, useEffect, useRef } from "react";
 import Logo from "./Logo";
 import Link from "next/link";
@@ -8,10 +9,10 @@ import Button from "./Button";
 import ContactMe from "./ContactMe";
 import { Menu, X } from "lucide-react";
 
-const Header = () => {
-    const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const [user, setUser] = useState(null);
-    const menuRef = useRef(null);
+const Header: React.FC = () => {
+    const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
+    const [user, setUser] = useState<any>(null); // Replace `any` with the actual user type if available
+    const menuRef = useRef<HTMLDivElement | null>(null);
 
     useEffect(() => {
         const fetchUser = async () => {
@@ -24,8 +25,8 @@ const Header = () => {
 
     // Handle click outside to dismiss menu
     useEffect(() => {
-        const handleClickOutside = (event) => {
-            if (menuRef.current && !menuRef.current.contains(event.target)) {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
                 setIsMenuOpen(false);
             }
         };
@@ -36,19 +37,27 @@ const Header = () => {
         };
     }, []);
 
-
     return (
         <div className="fixed top-0 left-0 z-50 bg-white flex h-16 w-screen px-10 justify-between items-center border-b-2 border-neutral-950">
+            {/* Logo */}
             <Logo />
+
+            {/* Desktop Links */}
             <div className="h-full p-2 hidden gap-2 items-center lg:flex">
                 <Link href='/about' className="hover:bg-orange-200 p-2 rounded-md">About</Link>
                 <Link href='/users' className="hover:bg-orange-200 p-2 rounded-md">Users</Link>
                 <Link href='/blog' className="hover:bg-orange-200 p-2 rounded-md">Blog</Link>
                 <ContactMe />
-                {user !== null ? <Pop /> : <Link href={'/login'}><Button title='Sign In' /></Link>}
+                {user !== null ? (
+                    <Pop />
+                ) : (
+                    <Link href='/login'>
+                        <Button title='Sign In' />
+                    </Link>
+                )}
             </div>
 
-            {/* Mobile */}
+            {/* Mobile Menu Button */}
             <div
                 className="lg:hidden hover:bg-gray-200 p-2 rounded-full cursor-pointer"
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -58,16 +67,25 @@ const Header = () => {
 
             {/* Mobile Menu */}
             {isMenuOpen && (
-                <div ref={menuRef} className="absolute top-16 left-0 w-full bg-white flex flex-col items-start gap-2 p-4 shadow-lg lg:hidden">
-                    <Link href='/about' className="hover:bg-orange-200 p-2 rounded-md">About</Link>
-                    <Link href='/users' className="hover:bg-orange-200 p-2 rounded-md">Users</Link>
-                    <Link href='/blog' className="hover:bg-orange-200 p-2 rounded-md">Blog</Link>
+                <div
+                    ref={menuRef}
+                    className="absolute top-16 left-0 w-full bg-white flex flex-col items-start gap-2 p-4 shadow-lg lg:hidden"
+                >
+                    <Link href='/about' className="hover:bg-orange-200 p-2 rounded-md w-full text-left">About</Link>
+                    <Link href='/users' className="hover:bg-orange-200 p-2 rounded-md w-full text-left">Users</Link>
+                    <Link href='/blog' className="hover:bg-orange-200 p-2 rounded-md w-full text-left">Blog</Link>
                     <ContactMe />
-                    {user !== null ? <Pop /> : <Link href={'/login'}><Button title='Sign In' /></Link>}
+                    {user !== null ? (
+                        <Pop />
+                    ) : (
+                        <Link href='/login' className="w-full">
+                            <Button title='Sign In' />
+                        </Link>
+                    )}
                 </div>
             )}
         </div>
     );
-}
+};
 
 export default Header;
