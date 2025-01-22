@@ -4,7 +4,7 @@ import "./globals.css";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 
-const font = Poppins({ subsets: ["latin"] ,weight:'400'});
+const font = Poppins({ subsets: ["latin"] ,weight:'300'});
 
 //static metadata
 export const metadata: Metadata = {

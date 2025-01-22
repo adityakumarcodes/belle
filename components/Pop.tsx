@@ -20,7 +20,7 @@ const Pop = () => {
             </Popover.Trigger >
             <Popover.Anchor />
             <Popover.Portal>
-                <Popover.Content className="absolute top-[50px] right-0 bg-white border border-gray-300 shadow-md rounded-md p-4 z-60">
+                <Popover.Content className="absolute top-[50px] right-0 bg-white border border-gray-300 shadow-md rounded-md p-4 z-60 min-w-56">
                     <ToggleTheme/>
                     <Link href='/admin' onClick={handleLinkClick}><h2 className="hover:underline hover:decoration-2 py-2">Go to admin</h2></Link>
                     <MyProfile/>

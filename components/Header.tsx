@@ -33,7 +33,6 @@ const Header = () => {
                 {user !== null ? <Pop /> : <Link href={'/login'}><Button title='Sign In' /></Link>}
             </div>
 
-            {/* Mobile */}
             <div
                 className="lg:hidden hover:bg-gray-200 p-2 rounded-full cursor-pointer"
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -43,7 +42,7 @@ const Header = () => {
 
             {/* Mobile Menu */}
             {isMenuOpen && (
-                <div className="absolute top-16 left-0 w-full bg-white flex flex-col items-start gap-2 p-4 shadow-lg lg:hidden">
+                <div className="absolute top-16 left-0 w-full bg-white flex flex-col items-center gap-2 p-4 shadow-lg lg:hidden">
                     <Link href='/about' className="hover:bg-orange-200 p-2 rounded-md">About</Link>
                     <Link href='/users' className="hover:bg-orange-200 p-2 rounded-md">Users</Link>
                     <Link href='/blog' className="hover:bg-orange-200 p-2 rounded-md">Blog</Link>
