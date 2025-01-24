@@ -43,9 +43,9 @@ const Header = () => {
             {/* Mobile Menu */}
             {isMenuOpen && (
                 <div className="absolute top-16 left-0 w-full bg-white flex flex-col items-center gap-2 p-4 shadow-lg lg:hidden">
-                    <Link href='/about' className="hover:bg-orange-200 p-2 rounded-md">About</Link>
-                    <Link href='/users' className="hover:bg-orange-200 p-2 rounded-md">Users</Link>
-                    <Link href='/blog' className="hover:bg-orange-200 p-2 rounded-md">Blog</Link>
+                    <Link href='/about' className="hover:bg-orange-200 p-2 rounded-md" onClick={() => setIsMenuOpen(!isMenuOpen)}>About</Link>
+                    <Link href='/users' className="hover:bg-orange-200 p-2 rounded-md" onClick={() => setIsMenuOpen(!isMenuOpen)}>Users</Link>
+                    <Link href='/blog' className="hover:bg-orange-200 p-2 rounded-md" onClick={() => setIsMenuOpen(!isMenuOpen)}>Blog</Link>
                     <ContactMe />
                     {user !== null ? <Pop /> : <Link href={'/login'}><Button title='Sign In' /></Link>}
                 </div>

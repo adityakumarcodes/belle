@@ -22,7 +22,7 @@ const BlogItem: React.FC<BlogItemProps> = ({ image, category, title, description
           <p className="hidden md:inline-block ml-4 mt-4 px-2 bg-orange-200 text-sm rounded-full">{category}</p>
           <div className="p-5">
             <h5 className="mb-2 text-lg font-medium tracking-tight text-gray-900">{title}</h5>
-            <p className="mb-3 text-sm tracking-tight text-grey-700">{description}</p>
+            {/* <p className="mb-3 text-sm tracking-tight text-grey-700">{description}</p> */}
             <div className="inline-flex items-center py-2 text-center">
               Read more
               <Image src={assets.arrow} alt="Arrow Icon" width={12} className="ml-2" />
@@ -33,8 +33,6 @@ const BlogItem: React.FC<BlogItemProps> = ({ image, category, title, description
 
       {/* Desktop */}
       <div className='hidden lg:block'>
-
-
         <div className="flex max-w-[500px] bg-white border-2 border-black hover:shadow-xl rounded-md select-none">
           <div className="w-2/5">
             <Link href={`/blog/${id}`}>
