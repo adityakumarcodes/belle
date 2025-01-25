@@ -3,16 +3,30 @@ import { useState, useEffect } from "react";
 import Logo from "./Logo";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/client";
-import Pop from "./Pop";
+import MyProfile from "./MyProfile";
 import Button from "./Button";
-import ContactMe from "./ContactMe";
 import { Menu, X } from "lucide-react";
-import {User} from '@supabase/supabase-js'
+import { User } from '@supabase/supabase-js'
+import { usePathname } from "next/navigation";
 
 const Header = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const [user, setUser] = useState<User|null>(null);
-
+    const [user, setUser] = useState<User | null>(null);
+    const [selected, setSelected] = useState<string>("");
+    const pathname=usePathname();
+    const navItems = [
+        { label: "Home", path: "/" },
+        { label: "About", path: "/about" },
+        { label: "Users", path: "/users" },
+        { label: "Blog", path: "/blog" },
+    ];    
+    
+    useEffect(() => {
+        const currentPath = pathname;
+        const matchedTab = navItems.find((item) => item.path === currentPath);
+        setSelected(matchedTab ? matchedTab.label : "");
+      }, [pathname]); 
+    
     useEffect(() => {
         const fetchUser = async () => {
             const supabase = createClient();
@@ -26,28 +40,22 @@ const Header = () => {
         <div className="fixed top-0 left-0 z-50 bg-white flex h-16 w-screen px-10 justify-between items-center border-b-2 border-neutral-950">
             <Logo />
             <div className="h-full p-2 hidden gap-2 items-center lg:flex">
-                <Link href='/about' className="hover:bg-orange-200 p-2 rounded-md">About</Link>
-                <Link href='/users' className="hover:bg-orange-200 p-2 rounded-md">Users</Link>
-                <Link href='/blog' className="hover:bg-orange-200 p-2 rounded-md">Blog</Link>
-                <ContactMe />
-                {user !== null ? <Pop /> : <Link href={'/login'}><Button title='Sign In' /></Link>}
+                {navItems.map((item) => <Link key={item.label} href={item.path} className={`hover:bg-orange-200 p-2 rounded-md ${selected===item.label?'bg-orange-200':''}`} onClick={() => setSelected(item.label)}>{item.label}</Link>)}
+                {user !== null ? <MyProfile /> : <Link href={'/login'}><Button title='Sign In' /></Link>}
             </div>
 
-            <div
-                className="lg:hidden hover:bg-gray-200 p-2 rounded-full cursor-pointer"
-                onClick={() => setIsMenuOpen(!isMenuOpen)}
-            >
+            <div className="lg:hidden p-2 rounded-full cursor-pointer" onClick={() => setIsMenuOpen(!isMenuOpen)}>
                 {isMenuOpen ? <X /> : <Menu />}
             </div>
 
             {/* Mobile Menu */}
             {isMenuOpen && (
                 <div className="absolute top-16 left-0 w-full bg-white flex flex-col items-center gap-2 p-4 shadow-lg lg:hidden">
-                    <Link href='/about' className="hover:bg-orange-200 p-2 rounded-md" onClick={() => setIsMenuOpen(!isMenuOpen)}>About</Link>
-                    <Link href='/users' className="hover:bg-orange-200 p-2 rounded-md" onClick={() => setIsMenuOpen(!isMenuOpen)}>Users</Link>
-                    <Link href='/blog' className="hover:bg-orange-200 p-2 rounded-md" onClick={() => setIsMenuOpen(!isMenuOpen)}>Blog</Link>
-                    <ContactMe />
-                    {user !== null ? <Pop /> : <Link href={'/login'}><Button title='Sign In' /></Link>}
+                    {navItems.map((item) => <Link key={item.path} href={item.path} className={`hover:bg-orange-200 p-2 rounded-md ${selected===item.label?'bg-orange-200':''}`} onClick={() => {
+                        setSelected(item.label);
+                        setIsMenuOpen(!isMenuOpen);
+                    }}>{item.label}</Link>)}
+                    {user !== null ? <MyProfile /> : <Link href={'/login'}><Button title='Sign In' /></Link>}
                 </div>
             )}
         </div>
