@@ -14,6 +14,7 @@ const Header = () => {
     const [user, setUser] = useState<User | null>(null);
     const [selected, setSelected] = useState<string>("");
     const pathname=usePathname();
+    const [isHidden, setIsHidden] = useState(false);
     const navItems = [
         { label: "Home", path: "/" },
         { label: "About", path: "/about" },
@@ -36,8 +37,25 @@ const Header = () => {
         fetchUser();
     }, []);
 
+    useEffect(() => {
+      const handleScroll=()=>{
+        const scrollPosition=window.scrollY;
+        if(scrollPosition>50){
+            setIsHidden(true);
+        }else{
+            setIsHidden(false);
+        }
+      };
+
+      window.addEventListener('scroll',handleScroll);
+    
+      return () => {
+        window.removeEventListener("scroll",handleScroll)
+      }
+    }, [])
+    
     return (
-        <div className="fixed top-0 left-0 z-50 bg-white flex h-16 w-screen px-10 justify-between items-center border-b-2 border-neutral-950">
+        <div className={`fixed top-0 left-0 z-50 bg-white flex h-16 w-screen px-10 justify-between items-center border-b-2 border-neutral-950 transition duration-300 ease-out ${isHidden?'-top-full':''}`}>
             <Logo />
             <div className="h-full p-2 hidden gap-2 items-center lg:flex">
                 {navItems.map((item) => <Link key={item.label} href={item.path} className={`hover:bg-orange-200 p-2 rounded-md ${selected===item.label?'bg-orange-200':''}`} onClick={() => setSelected(item.label)}>{item.label}</Link>)}
