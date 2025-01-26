@@ -37,3 +37,18 @@ export default function Home() {
         </div >
     </div>;
 }
+// Blur in Nextjs
+// Static
+    // const buffer = await fs.readFile('./public/1734160913868_blog_pic_1.png')
+    // const { color } = await getPlaiceholder(buffer)
+    // const { base64 } = await getPlaiceholder(buffer)
+    // Usege
+    // {/* <Image src={img} alt='' placeholder='blur' width={400} />static import */}
+    // {/* <Image src={img} alt='' placeholder='blur' width={400} blurDataURL={base64} />static placiholder */}
+    // {/* <Image src={img} alt='' width={400} style={{ backgroundColor: color.hex }} />color from img */}
+
+    // Dynamic
+    // const bufferD = await fetch('https://images.unsplash.com/photo-1727206407683-490abfe0d682?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHwzfHx8ZW58MHx8fHx8').then(async (res) => { return Buffer.from(await res.arrayBuffer()) })
+    // const { base64 } = await getPlaiceholder(bufferD)
+    // const { color } = await getPlaiceholder(bufferD)
+    // <Image src={src} alt='' placeholder='blur' height={ht} width={wt} blurDataURL={base64} />

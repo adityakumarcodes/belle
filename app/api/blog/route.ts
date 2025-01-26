@@ -1,9 +1,10 @@
+import getBlurImage from "@/lib/getBlurImage";
 import { createClient } from "@/lib/supabase/server";
 import { writeFile } from "fs/promises";
 import { NextRequest, NextResponse } from "next/server"
-  
+
 //read all blogs from db on the endpoint http://localhost:3000/api/blog
-export async function GET(request:NextRequest) {
+export async function GET(request: NextRequest) {
 
     const supabase = await createClient();
 
@@ -15,7 +16,7 @@ export async function GET(request:NextRequest) {
             .select("*")
             .eq('id', blogId)
             .single();
-        if(error) return NextResponse.json({ success: false, msg: error.message }) 
+        if (error) return NextResponse.json({ success: false, msg: error.message })
         else console.log(`Getting ${blogId} data`);
         return NextResponse.json(blog)
     }
@@ -23,13 +24,21 @@ export async function GET(request:NextRequest) {
     const { data: blogs, error } = await supabase
         .from('blogs')
         .select('*')
-    if(error) return NextResponse.json({ success: false, msg: error.message })
+        
+    const blogsWithBlur = await Promise.all(
+        blogs!.map(async (blog) => {
+            const { base64, imgUrl } = await getBlurImage(blog.image);
+            return { ...blog, image: imgUrl, base64 };
+        })
+    );
+    
+    if (error) return NextResponse.json({ success: false, msg: error.message })
     else console.log('Getting all blogs');
-    return NextResponse.json(blogs)
+    return NextResponse.json(blogsWithBlur)
 }
 
 //create blogs in db
-export async function POST(request:NextRequest) {
+export async function POST(request: NextRequest) {
     const formData = await request.formData();
     const timestamp = Date.now();
     const image = formData.get('image') as File;
@@ -53,7 +62,7 @@ export async function POST(request:NextRequest) {
         .from('blogs')
         .insert([blogData])
         .select();
-    if(error) return NextResponse.json({ success: false, msg: error.message }) 
+    if (error) return NextResponse.json({ success: false, msg: error.message })
     else console.log(blogData);
     return NextResponse.json({ success: true, msg: 'Blog Added' })
 }
