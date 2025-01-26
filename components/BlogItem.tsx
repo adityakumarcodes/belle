@@ -20,7 +20,7 @@ const BlogItem: React.FC<BlogItemProps> =  (props:BlogItemProps) => {
       {/* Mobile */}
       <div className="block lg:hidden max-w-[300px] bg-white border-2 border-black hover:shadow-xl rounded-md select-none">
         <Link href={`/blog/${props.id}`}>
-          <Image src={props.image} alt={props.title} className="rounded-md" width={300} height={300} placeholder='blur' blurDataURL={props.base64}/>
+          <Image src={props.image} alt={props.title} className="rounded-md" width={300} height={300} placeholder='blur' blurDataURL={props.base64} loading='lazy'/>
           <p className="hidden md:inline-block ml-4 mt-4 px-2 bg-orange-200 text-sm rounded-full">{props.category}</p>
           <div className="p-5">
             <h5 className="mb-2 text-lg font-medium tracking-tight text-gray-900">{props.title}</h5>
@@ -46,6 +46,7 @@ const BlogItem: React.FC<BlogItemProps> =  (props:BlogItemProps) => {
                 className="rounded-l-md object-cover w-full h-full"
                 placeholder='blur'
                 blurDataURL={props.base64}
+                loading='lazy'
               />
             </Link>
           </div>
