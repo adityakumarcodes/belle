@@ -24,7 +24,7 @@ export default function AboutPage() {
             </li>
             <li className="flex items-start">
                 <span className="text-xl font-medium text-gray-700">Personalized content recommendations:</span>
-                <span className="ml-2 text-gray-600">Use machine learning algorithms to offer personalized content recommendations based on users' reading history and preferences.</span>
+                <span className="ml-2 text-gray-600">Use ML algo to offer personalized content recommendations based on users reading history and preferences.</span>
             </li>
             <li className="flex items-start">
                 <span className="text-xl font-medium text-gray-700">Responsive design</span>
