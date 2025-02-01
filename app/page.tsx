@@ -1,7 +1,5 @@
 // import { supabase } from "@/lib/supabase";
-import { Bodoni_Moda } from 'next/font/google'
 
-const font = Bodoni_Moda({ subsets: ['latin'] })
 export default function Home() {
     // const addTodo= async ()=>{
     //     const {data,error}=await supabase.from('todo').insert({task:'Complete your portfolio'}).select()
@@ -22,18 +20,18 @@ export default function Home() {
 
     return <div>
         <div className="section" style={{ backgroundImage: "linear-gradient( 135deg, #FFF886 10%, #F072B6 100%)" }}>
-            <h1 className={`${font.className} text-6xl`}>Hero</h1>
+            <h1 className="text-4xl p-4">I am a developer focusing on building delightful experience for the web.</h1>
         </div>
 
         <div style={{ backgroundImage: "linear-gradient(to left bottom, #d16ba5, #c777b9, #ba83ca, #aa8fd8, #9a9ae1, #8aa7ec, #79b3f4, #69bff8, #52cffe, #41dfff, #46eefa, #5ffbf1)" }}
             className="section">
             <p>Introduce with your</p>
-            <h1 className={`${font.className} text-6xl`}>Skills</h1>
+            <h1 className="text-6xl">Skills</h1>
         </div>
 
         <div style={{ backgroundImage: "linear-gradient( 135deg, #69FF97 10%, #00E4FF 100%)" }} className="section">
             <p> List some good</p>
-            <h1 className={`${font.className} text-6xl`}>Projects</h1>
+            <h1 className="text-6xl">Projects</h1>
         </div >
     </div>;
 }
