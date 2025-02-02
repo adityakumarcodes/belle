@@ -1,23 +1,3 @@
-<<<<<<< HEAD
-## Useful information
-- Run the dev server: npm run dev
-- Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-- [Next.js Documentation](https://nextjs.org/docs)
-- Deploy to [Vercel Platform](https://vercel.com) from the creators of Next.js.
-
-## Libraries used 
-- Supabase : Postgres database and Authentication
-- React query : client side caching and NextJS handle server side caching
-- Motion : for animation
-- Replace axios with react query
-
-## Goals
-1. Landing page has animation,bento,3d,responsive
-2. Auth 
-3. Contact form
-4. Dark mode
-5. editorjs for image,code highlight;preview,draft,tags,edit existing blog
-=======
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
@@ -54,4 +34,3 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
->>>>>>> 72d85aa (Initial commit from Create Next App)
