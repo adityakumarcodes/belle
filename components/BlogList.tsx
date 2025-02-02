@@ -9,7 +9,6 @@ type Blog = {
     category: string;
     title: string;
     description: string;
-    base64:string;
 };
 
 const BlogList = () => {
@@ -37,7 +36,7 @@ const BlogList = () => {
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-2 gap-y-10 mb-16 mx-4 justify-items-center ">
                     {blogs.length > 0 && blogs !== undefined ?
                         blogs.filter(item => menu === 'All' ? true : item.category === menu)
-                            .map((item, index) => <BlogItem key={index} id={item.id} image={item.image.toString()} category={item.category} title={item.title} description={item.description} base64={item.base64} />)
+                            .map((item, index) => <BlogItem key={index} id={item.id} image={item.image.toString()} category={item.category} title={item.title} description={item.description} />)
                         : <h1>Loading...</h1>}
                 </div>
             </Suspense>

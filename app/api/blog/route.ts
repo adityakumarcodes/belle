@@ -1,4 +1,3 @@
-import getBlurImage from "@/lib/getBlurImage";
 import { createClient } from "@/lib/supabase/server";
 import { writeFile } from "fs/promises";
 import { NextRequest, NextResponse } from "next/server"
@@ -24,17 +23,10 @@ export async function GET(request: NextRequest) {
     const { data: blogs, error } = await supabase
         .from('blogs')
         .select('*')
-        
-    const blogsWithBlur = await Promise.all(
-        blogs!.map(async (blog) => {
-            const { base64, imgUrl } = await getBlurImage(blog.image);
-            return { ...blog, image: imgUrl, base64 };
-        })
-    );
-    
+
     if (error) return NextResponse.json({ success: false, msg: error.message })
     else console.log('Getting all blogs');
-    return NextResponse.json(blogsWithBlur)
+    return NextResponse.json(blogs)
 }
 
 //create blogs in db

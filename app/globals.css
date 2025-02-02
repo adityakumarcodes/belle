@@ -2,7 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-<<<<<<< HEAD
 * {
   padding: 0;
   margin: 0;
@@ -17,22 +16,3 @@
   @apply select-none text-white font-medium text-lg leading-5 rounded-md cursor-pointer m-2.5 p-2 border-none hover:brightness-150 bg-black disabled:bg-slate-300 disabled:text-gray-500 disabled:cursor-not-allowed hover:bg-gray-800;
 }
 
-=======
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-}
->>>>>>> 72d85aa (Initial commit from Create Next App)

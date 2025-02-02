@@ -9,18 +9,17 @@ interface BlogItemProps {
   title: string;
   description: string;
   id: string | number;
-  base64:string;
 }
 
 const BlogItem: React.FC<BlogItemProps> =  (props:BlogItemProps) => {
-
+  const imgUrl=`${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/thumbnails/${props.image}`;
   return (
     <div>
 
       {/* Mobile */}
       <div className="block lg:hidden max-w-[300px] bg-white border-2 border-black hover:shadow-xl rounded-md select-none">
         <Link href={`/blog/${props.id}`}>
-          <Image src={props.image} alt={props.title} className="rounded-md" width={300} height={300} placeholder='blur' blurDataURL={props.base64} loading='lazy'/>
+          <Image src={imgUrl} alt={props.title} className="rounded-md" width={300} height={300} loading='lazy'/>
           <p className="hidden md:inline-block ml-4 mt-4 px-2 bg-orange-200 text-sm rounded-full">{props.category}</p>
           <div className="p-5">
             <h5 className="mb-2 text-lg font-medium tracking-tight text-gray-900">{props.title}</h5>
@@ -39,13 +38,11 @@ const BlogItem: React.FC<BlogItemProps> =  (props:BlogItemProps) => {
           <div className="w-2/5">
             <Link href={`/blog/${props.id}`}>
               <Image
-                src={props.image}
+                src={imgUrl}
                 alt={props.title}
                 width={300}
                 height={300}
                 className="rounded-l-md object-cover w-full h-full"
-                placeholder='blur'
-                blurDataURL={props.base64}
                 loading='lazy'
               />
             </Link>

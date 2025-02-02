@@ -3,47 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-<<<<<<< HEAD
-    "dev": "next dev",
-=======
     "dev": "next dev --turbopack",
->>>>>>> 72d85aa (Initial commit from Create Next App)
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
-<<<<<<< HEAD
-    "@plaiceholder/next": "^3.0.0",
-    "@radix-ui/react-popover": "^1.1.3",
-    "@radix-ui/react-switch": "^1.1.2",
-    "@supabase/ssr": "^0.5.2",
-    "@supabase/supabase-js": "^2.47.2",
-    "@tanstack/react-query": "^5.66.0",
-    "axios": "^1.7.9",
-    "lucide-react": "^0.468.0",
-    "motion": "^12.0.6",
-    "next": "15.1.6",
-    "plaiceholder": "^3.0.0",
-    "react": "19.0.0",
-    "react-dom": "19.0.0",
-    "react-toastify": "^10.0.6",
-    "sharp": "^0.33.5"
-  },
-  "devDependencies": {
-    "@types/node": "^20",
-    "@types/react": "19.0.8",
-    "@types/react-dom": "19.0.3",
-    "eslint": "^8",
-    "eslint-config-next": "15.1.6",
-    "postcss": "^8",
-    "tailwindcss": "^3.4.1",
-    "typescript": "^5"
-  },
-  "overrides": {
-    "@types/react": "19.0.8",
-    "@types/react-dom": "19.0.3"
-=======
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "next": "15.1.6",
@@ -66,6 +31,5 @@
     "eslint": "^9",
     "eslint-config-next": "15.1.6",
     "@eslint/eslintrc": "^3"
->>>>>>> 72d85aa (Initial commit from Create Next App)
   }
 }
