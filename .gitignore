@@ -28,6 +28,10 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+<<<<<<< HEAD
+=======
+.pnpm-debug.log*
+>>>>>>> 72d85aa (Initial commit from Create Next App)
 
 # env files (can opt-in for committing if needed)
 .env*
