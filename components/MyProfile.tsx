@@ -4,7 +4,7 @@ import Image from "next/image";
 import { assets } from "@/assets/assets";
 import Link from "next/link";
 import ToggleTheme from "./ToggleTheme";
-import { signOut } from '@/app/login/actions'
+import { signOut } from '@/app/(community)/login/actions'
 import { useEffect, useState } from 'react'
 import { createClient } from "@/lib/supabase/client";
 import { User } from '@supabase/supabase-js';

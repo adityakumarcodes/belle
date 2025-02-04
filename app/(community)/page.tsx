@@ -1,5 +1,23 @@
 // import { supabase } from "@/lib/supabase";
 
+import { Variants } from "motion/react";
+import * as motion from "motion/react-client"
+
+const fadeInUpAnimation: Variants = {
+    hidden: {
+        opacity: 0,
+        y: 50
+    },
+    show: {
+        opacity: 1,
+        y: -50,
+        transition: {
+            duration: 1
+        },
+    },
+};
+
+
 export default function Home() {
     // const addTodo= async ()=>{
     //     const {data,error}=await supabase.from('todo').insert({task:'Complete your portfolio'}).select()
@@ -20,7 +38,7 @@ export default function Home() {
 
     return <div>
         <div className="section" style={{ backgroundImage: "linear-gradient( 135deg, #FFF886 10%, #F072B6 100%)" }}>
-            <h1 className="text-4xl p-4">I am a developer focusing on building delightful experience for the web.</h1>
+            <motion.h1 initial={"hidden"} animate={'show'} variants={fadeInUpAnimation} className="text-4xl p-4 font-medium">Building delightful experience for web</motion.h1>
         </div>
 
         <div style={{ backgroundImage: "linear-gradient(to left bottom, #d16ba5, #c777b9, #ba83ca, #aa8fd8, #9a9ae1, #8aa7ec, #79b3f4, #69bff8, #52cffe, #41dfff, #46eefa, #5ffbf1)" }}
@@ -37,16 +55,16 @@ export default function Home() {
 }
 // Blur in Nextjs
 // Static
-    // const buffer = await fs.readFile('./public/1734160913868_blog_pic_1.png')
-    // const { color } = await getPlaiceholder(buffer)
-    // const { base64 } = await getPlaiceholder(buffer)
-    // Usege
-    // {/* <Image src={img} alt='' placeholder='blur' width={400} />static import */}
-    // {/* <Image src={img} alt='' placeholder='blur' width={400} blurDataURL={base64} />static placiholder */}
-    // {/* <Image src={img} alt='' width={400} style={{ backgroundColor: color.hex }} />color from img */}
+// const buffer = await fs.readFile('./public/1734160913868_blog_pic_1.png')
+// const { color } = await getPlaiceholder(buffer)
+// const { base64 } = await getPlaiceholder(buffer)
+// Usege
+// {/* <Image src={img} alt='' placeholder='blur' width={400} />static import */}
+// {/* <Image src={img} alt='' placeholder='blur' width={400} blurDataURL={base64} />static placiholder */}
+// {/* <Image src={img} alt='' width={400} style={{ backgroundColor: color.hex }} />color from img */}
 
-    // Dynamic
-    // const bufferD = await fetch('https://images.unsplash.com/photo-1727206407683-490abfe0d682?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHwzfHx8ZW58MHx8fHx8').then(async (res) => { return Buffer.from(await res.arrayBuffer()) })
-    // const { base64 } = await getPlaiceholder(bufferD)
-    // const { color } = await getPlaiceholder(bufferD)
-    // <Image src={src} alt='' placeholder='blur' height={ht} width={wt} blurDataURL={base64} />
+// Dynamic
+// const bufferD = await fetch('https://images.unsplash.com/photo-1727206407683-490abfe0d682?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHwzfHx8ZW58MHx8fHx8').then(async (res) => { return Buffer.from(await res.arrayBuffer()) })
+// const { base64 } = await getPlaiceholder(bufferD)
+// const { color } = await getPlaiceholder(bufferD)
+// <Image src={src} alt='' placeholder='blur' height={ht} width={wt} blurDataURL={base64} />

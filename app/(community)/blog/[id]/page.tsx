@@ -36,6 +36,7 @@ const Page = ({ params }:PageProps) => {
   if(!data){
     return <h1>Loading...</h1>
   }
+  const imgUrl=`${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/thumbnails/${data.image}`;
 
   return (<div>
     <div className='bg-gray-200 p-5'>
@@ -46,7 +47,7 @@ const Page = ({ params }:PageProps) => {
       </div>
     </div>
     <div className="mx-5 max-w-[800px] md:mx-auto mt-[-100px] mb-10 ">
-        <Image src={data.image} className='border-4 border-white' width={1280} height={720} alt={''} />
+        <Image src={imgUrl} className='border-4 border-white' width={1280} height={720} alt={''} />
         <h1 className='my-8 text-[26px] font-semibold'>Introduction</h1>
         <p>{data.description}</p>
         <h3 className='my-5 text-[18px] font-semibold'>Lorem ipsum dolor sit amet consectetur adipisicing elit.</h3>

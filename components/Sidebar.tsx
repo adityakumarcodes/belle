@@ -11,13 +11,10 @@ const Sidebar = () => {
                     <Link href={'/admin/addProduct'} className='flex  items-center border  border-black  gap-3 font-medium p-3 bg-white '>
                         <Image src={assets.add_icon} alt={''} width={28} /><p>Add blogs</p>
                     </Link>
-                    <Link href={'/admin/blogList'} className='mt-5 flex  items-center border  border-black  gap-3 font-medium p-3 bg-white '>
+                    <Link href={'/admin/blogList'} className='mt-5 flex items-center border  border-black  gap-3 font-medium p-3 bg-white '>
                         <Image src={assets.blog_icon} alt={''} width={28} /><p>Blog lists</p>
                     </Link>
-                    <Link href={'/admin/subscriptions'} className='mt-5 flex  items-center border  border-black  gap-3 font-medium p-3 bg-white '>
-                        <Image src={assets.email_icon} alt={''} width={28} />
-                        <p>Subscriptions</p>
-                    </Link>
+                    <Link href='/'><h2 className="hover:underline hover:decoration-2 py-2">Go to HomePage</h2></Link>
                 </div>
             </div>
         </div>
