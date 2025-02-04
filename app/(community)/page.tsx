@@ -6,14 +6,14 @@ import * as motion from "motion/react-client"
 const fadeInUpAnimation: Variants = {
     hidden: {
         opacity: 0,
-        y: 50
+        y: 50,
+        filter: 'blur(5px)'
     },
     show: {
         opacity: 1,
         y: -50,
-        transition: {
-            duration: 1
-        },
+        transition: {duration: 1},
+        filter: 'blur(0px)'
     },
 };
 
@@ -40,7 +40,6 @@ export default function Home() {
         <div className="section" style={{ backgroundImage: "linear-gradient( 135deg, #FFF886 10%, #F072B6 100%)" }}>
             <motion.h1 initial={"hidden"} animate={'show'} variants={fadeInUpAnimation} className="text-4xl p-4 font-medium">Building delightful experience for web</motion.h1>
         </div>
-
         <div style={{ backgroundImage: "linear-gradient(to left bottom, #d16ba5, #c777b9, #ba83ca, #aa8fd8, #9a9ae1, #8aa7ec, #79b3f4, #69bff8, #52cffe, #41dfff, #46eefa, #5ffbf1)" }}
             className="section">
             <p>Introduce with your</p>

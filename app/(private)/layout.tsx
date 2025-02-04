@@ -8,7 +8,7 @@ import "../globals.css";
 const font = Poppins({ subsets: ["latin"], weight: '300' });
 
 export const metadata: Metadata = {
-    title: "Belle",
+    title: "Belle: A portfolio website of Aditya",
     description: "Life is what you make of it so make it beautiful",
 };
 
