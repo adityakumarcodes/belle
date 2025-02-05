@@ -8,7 +8,7 @@ import "../globals.css";
 const font = Poppins({ subsets: ["latin"], weight: '300' });
 
 export const metadata: Metadata = {
-    title: "Belle: A portfolio website of Aditya",
+    title: "Belle",
     description: "Life is what you make of it so make it beautiful",
 };
 
@@ -22,7 +22,9 @@ export default function AdminLayout({
             <div className="flex">
                 <ToastContainer theme="light" position="bottom-right" />
                 <Sidebar />
-                {children}
+                <div className="ml-64 w-full">
+                    {children}
+                </div>
             </div>
         </body>
     </html>;

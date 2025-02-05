@@ -8,7 +8,7 @@ const font = Poppins({ subsets: ["latin"] ,weight:'300'});
 
 //static metadata
 export const metadata: Metadata = {
-  title: "Belle: A portfolio website of Aditya",
+  title: "Belle",
   description: "Life is what you make of it so make it beautiful",
 };
 
