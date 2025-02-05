@@ -1,6 +1,6 @@
 'use client'
 import * as  Tooltip from "@radix-ui/react-tooltip";
-import { ChevronRight, Ellipsis, Plus, FileText } from "lucide-react";
+import { ChevronRight, Plus, FileText } from "lucide-react";
 import { useState } from "react";
 
 interface FolderType {
