@@ -28,7 +28,7 @@ const NoteDetails = () => {
   if (!data) return <p>Loading...</p>;
 
   useEffect(() => {
-    if(!id) return ;
+    // if(!id) return ;
 
     const fetchNoteDetails = async () => {
       console.log("Fetching note with id:", id);
