@@ -1,10 +1,7 @@
 import Paragraph from "@editorjs/paragraph";
 import Header from "@editorjs/header";
 import EditorjsList  from "@editorjs/list";
-import ImageTool from '@editorjs/image';
 import Delimiter from '@editorjs/delimiter';
-import { createClient } from "./supabase/client";
-import { File } from "buffer";
 import { ToolConstructable } from "@editorjs/editorjs";
 
 export const EDITOR_JS_TOOLS = {
