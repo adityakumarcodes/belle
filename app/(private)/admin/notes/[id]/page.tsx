@@ -10,7 +10,9 @@ import dynamic from 'next/dynamic';
 const NoteDetails = () => {
   const params = useParams();
   const id = params?.id ?? "";
-  const [data, setData] = useState<OutputData>({ blocks: []})
+  const [data, setData] = useState<OutputData>({ blocks: []});
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null); 
   const options = [
     { icon: Smile, title: 'Add icon' },
     { icon: Heart, title: 'Favourite' },
@@ -21,28 +23,34 @@ const NoteDetails = () => {
     { icon: Trash2, title: 'Trash' },
   ]
 
-  const handleSave = (data: any) => {
+  const handleSave = (data: OutputData) => {
     console.log("Editor Data:", data);
   };
 
-  if (!data) return <p>Loading...</p>;
-
   useEffect(() => {
-    // if(!id) return ;
+    if(!id) return ;
 
     const fetchNoteDetails = async () => {
+      
+      setLoading(true);
       console.log("Fetching note with id:", id);
       const supabase = createClient();
-      const { data, error } = await supabase.from("notes").select("*").eq('id',id).single();
+      const { data, error } = await supabase.from("notes").select("long_desc").eq('id',id).single();
       if (error) {
         console.error("Error fetching notes:", error.message);
+        setError(error.message);
         return null;
       }
       console.log("Fetched data:", data);
-      setData(data['long_desc']);
+      setData(data?.long_desc || { blocks: [] }); 
+      setLoading(false); 
     };
     fetchNoteDetails();
   }, [id]);
+
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error}</p>; 
 
   return (
     <div className='flex flex-col h-screen overflow-y-scroll'>
