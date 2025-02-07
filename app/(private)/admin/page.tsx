@@ -8,8 +8,8 @@ const BlogsPage = () => {
   const options = [
     { icon: Heart, title: 'Favourite' },
     { icon: Undo, title: 'Undo' },
-    { icon: Lock, title: 'Lock page' },
-    { icon: Trash2, title: 'Move to trash' },
+    { icon: Lock, title: 'Lock' },
+    { icon: Trash2, title: 'Trash' },
   ]
 
   return (

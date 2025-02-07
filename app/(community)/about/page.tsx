@@ -66,7 +66,7 @@ export default function AboutPage() {
             </li>
         </ol>
 
-      <Link href='/'><h2>Go to home</h2></Link>
+      <Link href='/'><h6>Go to home</h6></Link>
     </div>
   )
 }

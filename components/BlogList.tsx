@@ -32,14 +32,12 @@ const BlogList = () => {
                 <button onClick={() => setMenu('Startup')} className={menu === 'Startup' ? 'bg-orange-200  py-2 px-4 rounded-full' : ''} >Startup</button>
                 <button onClick={() => setMenu('Lifestyle')} className={menu === 'Lifestyle' ? 'bg-orange-200  py-2 px-4 rounded-full' : ''}>Lifestyle</button>
             </div>
-            <Suspense fallback={<div>Loading...</div>}>
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-2 gap-y-10 mb-16 mx-4 justify-items-center ">
-                    {blogs.length > 0 && blogs !== undefined ?
-                        blogs.filter(item => menu === 'All' ? true : item.category === menu)
-                            .map((item, index) => <BlogItem key={index} id={item.id} image={item.image.toString()} category={item.category} title={item.title} description={item.description} />)
-                        : <h1>Loading...</h1>}
-                </div>
-            </Suspense>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-2 gap-y-10 mb-16 mx-4 justify-items-center ">
+                {blogs.length > 0 && blogs !== undefined ?
+                    blogs.filter(item => menu === 'All' ? true : item.category === menu)
+                        .map((item, index) => <BlogItem key={index} id={item.id} image={item.image.toString()} category={item.category} title={item.title} description={item.description} />)
+                    : <h6>Loading...</h6>}
+            </div>
         </div>
     );
 };

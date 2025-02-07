@@ -22,6 +22,12 @@ const nextConfig: NextConfig = {
         port: '',
         search: '',
       },
+      {
+        protocol: 'https',
+        hostname: 'atomicdesign.bradfrost.com',
+        port: '',
+        search: '',
+      },
     ],
   }
 };

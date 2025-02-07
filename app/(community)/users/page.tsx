@@ -12,7 +12,7 @@ export default async function UsersPage() {
     const content = (
         <section className='p-4'>
             <h1>Users (2. Fetching Data)</h1>
-            <Link href='/'><h2>Go to Home</h2></Link>
+            <Link href='/'><h6>Go to Home</h6></Link>
             <br />
             {users.map(user => {
                 return (
