@@ -1,6 +1,6 @@
 'use client'
 const Editor = dynamic(() => import("@/components/Editor"), { ssr: false });
-import { Heart, Lock, MessageSquareText, Pin, Smile, Trash2, Undo } from 'lucide-react'
+import { Heart, Lock, MessageSquareText, Pin, Save, Smile, Trash2, Undo } from 'lucide-react'
 import { useEffect, useState } from 'react';
 import { createClient } from '@/lib/supabase/client';
 import { useParams } from 'next/navigation';
@@ -84,7 +84,7 @@ const NoteDetails = () => {
           ))}
         </div>
       </div>
-      <Editor onSave={handleSave} initialData={data}/>
+      <Editor onSave={handleSave} initialData={data} id={Number(id)}/>
     </div>
   )
 }

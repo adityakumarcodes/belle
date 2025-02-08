@@ -1,8 +1,10 @@
 'use client'
 
 import { EDITOR_JS_TOOLS } from '@/lib/editorConfig';
+import { createClient } from '@/lib/supabase/client';
 import EditorJS, { OutputData } from '@editorjs/editorjs';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { toast } from 'react-toastify';
 
 const INITIAL_DATA = {
     time: 1701368244004,
@@ -67,42 +69,71 @@ const INITIAL_DATA = {
 interface EditorProps {
     onSave: (data: OutputData) => void;
     initialData?: OutputData;
+    id: number;
 }
 
 
-const Editor: React.FC<EditorProps> = ({ onSave, initialData }) => {
+const Editor: React.FC<EditorProps> = ({ onSave, initialData, id }) => {
     const ref = useRef<EditorJS | null>(null);
+    const [readOnly, setReadOnly] = useState(true);
 
     useEffect(() => {
-        if (!ref.current) {
-            const editor = new EditorJS({
-                holder: "editorjs",
-                tools: EDITOR_JS_TOOLS,
-                data: initialData || INITIAL_DATA,
-                onReady: () => {
-                    console.log("Editor.js is ready to work!");
-                    ref.current = editor;
-                },
-                placeholder: "Type 'Tab' for commands",
-                readOnly: true,
-            });
+
+        if (ref.current) {
+            ref.current.destroy();
+            ref.current = null;
         }
+
+        const editor = new EditorJS({
+            holder: "editorjs",
+            tools: EDITOR_JS_TOOLS,
+            data: initialData || INITIAL_DATA,
+            onReady: () => {
+                console.log("Editor.js is ready to work!");
+                ref.current = editor;
+            },
+            placeholder: "Type 'Tab' for commands",
+            readOnly: readOnly,
+        });
 
         return () => {
             ref.current?.destroy();
             ref.current = null;
         };
-    }, [initialData]);
+    }, [initialData, readOnly]);
 
     const handleSave = async () => {
         if (ref.current) {
             const data = await ref.current.save();
             onSave(data);
+            const longDesc = JSON.stringify(data);
+            const supabase = createClient();
+            const { error } = await supabase
+                .from('notes')
+                .update({ long_desc: longDesc })
+                .eq('id', id);
+
+            if (error) {
+                console.error("Error updating long_desc:", error);
+                toast.error("Failed to save data! ❌");
+            } else {
+                toast.success("Content saved successfully! ✅");
+            }
         }
     };
 
+
+    const toggleReadOnly = () => {
+        setReadOnly((prev) => !prev);
+    };
+
     return <div className="p-2 text-left">
-        <button onClick={handleSave} className='btn'>Save</button>
+        <button className="btn" onClick={handleSave} disabled={readOnly}>
+            Save
+        </button>
+        <button className="btn" onClick={toggleReadOnly}>
+            {readOnly ? "Edit mode" : "Read mode"}
+        </button>
         <div className="px-2 py-2" id='editorjs' />
         {/* <Image src='https://cdn.pixabay.com/photo/2023/07/31/16/37/sugar-apple-8161386_1280.jpg' alt={''} width={500} height={50} className='overflow-clip rounded-md object-fit m-6' /> */}
     </div>
