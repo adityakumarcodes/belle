@@ -1,6 +1,5 @@
 'use client'
 import { createClient } from "@/lib/supabase/client";
-import * as  Tooltip from "@radix-ui/react-tooltip";
 import { ChevronRight, Plus, FileText, Pin } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";

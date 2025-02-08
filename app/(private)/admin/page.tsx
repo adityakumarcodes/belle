@@ -1,5 +1,5 @@
 import IconButton from '@/components/IconButton'
-import { Heart, Lock, MessageSquareText, Smile, Trash2, Undo } from 'lucide-react'
+import { Heart, Lock, MessageSquareText, Trash2, Undo } from 'lucide-react'
 import { Bodoni_Moda } from 'next/font/google'
 import Image from 'next/image'
 
