@@ -48,7 +48,7 @@ const Page = ({ params }:PageProps) => {
     </div>
     <div className="mx-5 max-w-[800px] md:mx-auto mt-[-100px] mb-10 ">
         <Image src={imgUrl} className='border-4 border-white' width={1280} height={720} alt={''} />
-        <h2 className='my-8 text-[26px] font-semibold'>Introduction</h2>
+        <h4 className='my-8 text-[26px] font-semibold'>Introduction</h4>
         <p>{data.description}</p>
         <h3 className='my-5 text-[18px] font-semibold'>Lorem ipsum dolor sit amet consectetur adipisicing elit.</h3>
         <p className='my-3'> Error animi aperiam culpa cum, dolore numquam ipsam deleniti rerum quo itaque rem cumque unde ad eaque repellendus accusamus eveniet nisi quis.</p>

@@ -30,19 +30,18 @@ const NoteDetails = () => {
   useEffect(() => {
     if(!id) return ;
 
-    const fetchNoteDetails = async () => {
-      
+    const fetchNoteDetails = async () => {      
       setLoading(true);
       console.log("Fetching note with id:", id);
       const supabase = createClient();
-      const { data, error } = await supabase.from("notes").select("long_desc").eq('id',id).single();
+      const { data, error } = await supabase.from("notes").select("content").eq('id',id).single();
       if (error) {
         console.error("Error fetching notes:", error.message);
         setError(error.message);
         return null;
       }
       console.log("Fetched data:", data);
-      setData(data?.long_desc || { blocks: [] }); 
+      setData(data?.content || { blocks: [] }); 
       setLoading(false); 
     };
     fetchNoteDetails();

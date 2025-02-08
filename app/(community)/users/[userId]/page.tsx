@@ -45,9 +45,9 @@ export default async function UserPage({ params }: Params) {
     return (
         <div className='p-4'>
             <h1>{user.name} Page(3. SSG/SSR/ISR)</h1>
-            <Link href='/users'><h2>Go to users</h2></Link>
+            <Link href='/users'><h4>Go to users</h4></Link>
             <br />
-            <Suspense fallback={<h2>Loading...</h2>}>
+            <Suspense fallback={<h4>Loading...</h4>}>
                 {/* <UserPosts posts={userPosts} /> */}
                 <UserPosts promise={userPostsData} />
             </Suspense>

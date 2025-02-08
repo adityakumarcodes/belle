@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 
 interface FolderType {
     name: string;
+    id:number;
     folders?: FolderType[];
 }
 
@@ -28,16 +29,17 @@ const Tree = () => {
     useEffect(() => {
         const fetchFolders = async () => {
             const supabase = createClient();
-            const { data, error } = await supabase.from("notes").select("id");
+            const { data, error } = await supabase.from("notes").select("id,title");
             if (error) {
                 console.error("Error fetching notes:", error.message);
                 return null;
             }
-            const mappedFolders: FolderType[] = (data || []).map((x: { id: number}) => ({
-                name: x.id.toString(),
-                folders: [],  
+            const mappedFolders: FolderType[] = (data || []).map((x) => ({
+                name: x.title,
+                id:x.id.toString(),
+                folders: [],
             }));
-            setFolders( mappedFolders);
+            setFolders(mappedFolders);
         };
         fetchFolders();
     }, []);
@@ -61,8 +63,8 @@ const Folder = ({ folder }: FolderProps) => {
             <div className="flex gap-1.5 items-center">
                 <ChevronRight strokeWidth={1.25} onClick={() => setIsOpen(!isOpen)} className={`ml-1 transition-transform duration-200 group-hover:inline hidden m-1 text-gray-500 hover:bg-gray-300 rounded-md ${isOpen ? 'rotate-90' : ''}`} />
                 {folder.folders && folder.folders.length === 0 ? <FileText strokeWidth={1.25} className="text-gray-500 inline group-hover:hidden ml-2 w-6 h-6 " /> : <p className="ml-2 w-6 h-6 inline group-hover:hidden">🧠</p>}
-                <Link href={`/admin/notes/${folder.name}`}>
-                <p className="line-clamp-1 select-none">{folder.name}</p>
+                <Link href={`/admin/notes/${folder.id}`}>
+                    <p className="line-clamp-1 select-none">{folder.name}</p>
                 </Link>
             </div>
             <Tooltip.Provider>

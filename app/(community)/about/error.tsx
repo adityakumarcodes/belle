@@ -12,7 +12,7 @@ export default function Error({ error }: {
 
   return (
     <div>
-      <h2 className='bg-red-400 text-white p-2'>Something went wrong!</h2>
+      <h4 className='bg-red-400 text-white p-2'>Something went wrong!</h4>
     </div>
   )
 }

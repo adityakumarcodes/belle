@@ -102,19 +102,24 @@ const Editor: React.FC<EditorProps> = ({ onSave, initialData, id }) => {
         };
     }, [initialData, readOnly]);
 
+    const extractHeader = (data:OutputData) => {
+        const firstBlock = data['blocks']?.[0];
+        return firstBlock?.type === "header" ? firstBlock.data.text : null;
+    };
+      
     const handleSave = async () => {
         if (ref.current) {
             const data = await ref.current.save();
             onSave(data);
-            const longDesc = JSON.stringify(data);
+            const title = extractHeader(data) || `Note_${id}`;
             const supabase = createClient();
             const { error } = await supabase
                 .from('notes')
-                .update({ long_desc: longDesc })
+                .update({ content: data ,title:title})
                 .eq('id', id);
 
             if (error) {
-                console.error("Error updating long_desc:", error);
+                console.error("Error updating content:", error);
                 toast.error("Failed to save data! ❌");
             } else {
                 toast.success("Content saved successfully! ✅");
