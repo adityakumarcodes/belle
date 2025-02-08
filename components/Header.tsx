@@ -35,7 +35,7 @@ const Header = () => {
             setUser(user);
         };
         fetchUser();
-    }, []);
+    });
 
     useEffect(() => {
       const handleScroll=()=>{
@@ -52,7 +52,7 @@ const Header = () => {
       return () => {
         window.removeEventListener("scroll",handleScroll)
       }
-    }, [])
+    })
     
     return (
         <div className={`fixed left-0 z-50 bg-white flex h-16 w-screen px-10 justify-between items-center border-b-2 border-neutral-950 transition duration-300 ease-out ${isHidden?'-top-full':'top-0'}`}>
