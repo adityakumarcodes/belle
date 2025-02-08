@@ -2,19 +2,16 @@ import Paragraph from "@editorjs/paragraph";
 import Header from "@editorjs/header";
 import EditorjsList from "@editorjs/list";
 import Delimiter from '@editorjs/delimiter';
-import { ToolConstructable } from "@editorjs/editorjs";
+// import { ToolConstructable } from "@editorjs/editorjs";
 import ImageTool from "@editorjs/image";
 import { createClient } from "./supabase/client";
+import LinkTool from '@editorjs/link';
+import AttachesTool from '@editorjs/attaches';
+import Embed from '@editorjs/embed';
 
 export const EDITOR_JS_TOOLS = {
-  delimiter: Delimiter,
-  paragraph: {
-    class: Paragraph as unknown as ToolConstructable,
-    inlineToolbar: true,
-  },
   header: {
-    class: Header as unknown as ToolConstructable,
-    shortcut: 'CMD+SHIFT+H',
+    class: Header,
     inlineToolbar: true,
     config: {
       placeholder: 'Enter a heading',
@@ -22,8 +19,12 @@ export const EDITOR_JS_TOOLS = {
       defaultLevel: 1
     },
   },
+  paragraph: {
+    class: Paragraph,
+    inlineToolbar: true,
+  },
   list: {
-    class: EditorjsList as unknown as ToolConstructable,
+    class: EditorjsList,
     inlineToolbar: true,
     config: {
       defaultStyle: 'unordered'
@@ -37,7 +38,7 @@ export const EDITOR_JS_TOOLS = {
       //   byUrl: 'http://localhost:8008/fetchUrl', // Your endpoint that provides uploading by Url
       // },
       uploader: {
-        uploadByFile: async (file: File) => {
+        uploadByFile: async (file) => {
           console.log('uploading');
           const supabase = createClient();
           const fileName = `/images/${file.name}`;
@@ -62,7 +63,7 @@ export const EDITOR_JS_TOOLS = {
             file: { url: publicUrlData.publicUrl },
           };
         },
-        uploadByUrl: async (url: string) => {
+        uploadByUrl: async (url) => {
           const response = await fetch(url);
           const file = await response.blob();
           const fileName = url.split('/').pop();
@@ -87,4 +88,25 @@ export const EDITOR_JS_TOOLS = {
       }
     }
   },
+  delimiter: Delimiter,
+  linkTool: {
+    class: LinkTool,
+    config: {
+      endpoint: 'http://localhost:8008/fetchUrl',
+    }
+  },
+  attaches: {
+    class: AttachesTool,
+    config: {
+      endpoint: 'http://localhost:8008/uploadFile'
+    }
+  },
+  embed: {
+    class: Embed,
+    config: {
+      services: {
+        youtube: true
+      }
+    }
+  }
 };

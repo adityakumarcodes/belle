@@ -67,13 +67,12 @@ const INITIAL_DATA = {
 };
 
 interface EditorProps {
-    onSave: (data: OutputData) => void;
     initialData?: OutputData;
     id: number;
 }
 
 
-const Editor: React.FC<EditorProps> = ({ onSave, initialData, id }) => {
+const Editor: React.FC<EditorProps> = ({initialData, id }) => {
     const ref = useRef<EditorJS | null>(null);
     const [readOnly, setReadOnly] = useState(true);
 
@@ -110,7 +109,6 @@ const Editor: React.FC<EditorProps> = ({ onSave, initialData, id }) => {
     const handleSave = async () => {
         if (ref.current) {
             const data = await ref.current.save();
-            onSave(data);
             const title = extractHeader(data) || `Note_${id}`;
             const supabase = createClient();
             const { error } = await supabase
@@ -120,9 +118,9 @@ const Editor: React.FC<EditorProps> = ({ onSave, initialData, id }) => {
 
             if (error) {
                 console.error("Error updating content:", error);
-                toast.error("Failed to save data! ❌");
+                toast.error("Failed to save data!");
             } else {
-                toast.success("Content saved successfully! ✅");
+                toast.success("Content saved successfully!");
             }
         }
     };

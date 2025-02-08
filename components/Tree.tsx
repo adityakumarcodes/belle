@@ -1,13 +1,14 @@
 'use client'
 import { createClient } from "@/lib/supabase/client";
 import * as  Tooltip from "@radix-ui/react-tooltip";
-import { ChevronRight, Plus, FileText } from "lucide-react";
+import { ChevronRight, Plus, FileText, Pin } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import Tooltipp from "./Tooltipp";
 
 interface FolderType {
     name: string;
-    id:number;
+    id: number;
     folders?: FolderType[];
 }
 
@@ -36,7 +37,7 @@ const Tree = () => {
             }
             const mappedFolders: FolderType[] = (data || []).map((x) => ({
                 name: x.title,
-                id:x.id.toString(),
+                id: x.id.toString(),
                 folders: [],
             }));
             setFolders(mappedFolders);
@@ -67,18 +68,14 @@ const Folder = ({ folder }: FolderProps) => {
                     <p className="line-clamp-1 select-none">{folder.name}</p>
                 </Link>
             </div>
-            <Tooltip.Provider>
-                <Tooltip.Root>
-                    <Tooltip.Trigger >
-                        <Plus strokeWidth={1.5} className={`group-hover:opacity-100 opacity-0 m-1 text-gray-500 hover:bg-gray-300 rounded-md`} />
-                    </Tooltip.Trigger >
-                    <Tooltip.Portal>
-                        <Tooltip.Content side="right" sideOffset={10} className="rounded bg-gray-200 p-2 ">
-                            <p>Add a page inside</p>
-                        </Tooltip.Content>
-                    </Tooltip.Portal>
-                </Tooltip.Root>
-            </Tooltip.Provider>
+            <div className="flex ">
+                <Tooltipp msg="Pin" dir={"bottom"}>
+                    <Pin strokeWidth={1.5} className={`group-hover:opacity-100 opacity-0 m-1 text-gray-500 hover:bg-gray-300 rounded-md`} />
+                </Tooltipp>
+                <Tooltipp msg="Add a page inside" dir={"bottom"}>
+                    <Plus strokeWidth={1.5} className={`group-hover:opacity-100 opacity-0 m-1 text-gray-500 hover:bg-gray-300 rounded-md`} />
+                </Tooltipp>
+            </div>
         </span>
         {isOpen && folder.folders && folder.folders.length === 0 && <p className="text-gray-400 ml-6">No pages inside</p>}
         {isOpen && <ul>{folder.folders?.map(subFolder => <Folder folder={subFolder} key={subFolder.name} />)}</ul>}

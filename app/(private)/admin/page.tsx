@@ -46,7 +46,6 @@ const BlogsPage = () => {
       </div>
 
       <div className='flex m-4'>
-        <IconButton title='Add icon' icon={Smile} href={''} />
         <IconButton title='Add comment' icon={MessageSquareText} href={''} />
       </div>
       <div className='m-4 p-2'>

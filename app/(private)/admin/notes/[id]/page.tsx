@@ -1,6 +1,6 @@
 'use client'
 const Editor = dynamic(() => import("@/components/Editor"), { ssr: false });
-import { Heart, Lock, MessageSquareText, Pin, Smile, Trash2, Undo } from 'lucide-react'
+import { Heart, Lock, MessageSquareText, Trash2, Undo } from 'lucide-react'
 import { useEffect, useState } from 'react';
 import { createClient } from '@/lib/supabase/client';
 import { useParams } from 'next/navigation';
@@ -14,18 +14,13 @@ const NoteDetails = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null); 
   const options = [
-    { icon: Smile, title: 'Add icon' },
     { icon: Heart, title: 'Favourite' },
     { icon: Undo, title: 'Undo' },
     { icon: Lock, title: 'Lock' },
-    { icon: Pin, title: 'Pin' },
     { icon: MessageSquareText, title: 'Comments' },
     { icon: Trash2, title: 'Trash' },
   ]
 
-  const handleSave = (data: OutputData) => {
-    console.log("Editor Data:", data);
-  };
 
   useEffect(() => {
     if(!id) return ;
@@ -54,7 +49,7 @@ const NoteDetails = () => {
   return (
     <div className='flex flex-col h-screen overflow-y-scroll'>
       <div className='m-2 flex items-center justify-between'>
-        {/* <nav className="text-gray-600 text-sm">
+        <nav className="text-gray-600 text-sm">
           <ol className="list-reset flex">
             <li>
               <a href="#" className="hover:underline">Home</a>
@@ -70,7 +65,7 @@ const NoteDetails = () => {
             </li>
             <li className="text-gray-500">Current Page</li>
           </ol>
-        </nav> */}
+        </nav>
         <div className='flex space-x-4 ml-6'>
           {options.map((op) => (
             <span
@@ -83,7 +78,7 @@ const NoteDetails = () => {
           ))}
         </div>
       </div>
-      <Editor onSave={handleSave} initialData={data} id={Number(id)}/>
+      <Editor initialData={data} id={Number(id)}/>
     </div>
   )
 }
