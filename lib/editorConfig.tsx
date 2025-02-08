@@ -2,16 +2,16 @@ import Paragraph from "@editorjs/paragraph";
 import Header from "@editorjs/header";
 import EditorjsList from "@editorjs/list";
 import Delimiter from '@editorjs/delimiter';
-// import { ToolConstructable } from "@editorjs/editorjs";
+import { ToolConstructable } from "@editorjs/editorjs";
 import ImageTool from "@editorjs/image";
 import { createClient } from "./supabase/client";
-import LinkTool from '@editorjs/link';
-import AttachesTool from '@editorjs/attaches';
-import Embed from '@editorjs/embed';
+// import LinkTool from '@editorjs/link';
+// import AttachesTool from '@editorjs/attaches';
+// import Embed from '@editorjs/embed';
 
 export const EDITOR_JS_TOOLS = {
   header: {
-    class: Header,
+    class: Header as unknown as ToolConstructable,
     inlineToolbar: true,
     config: {
       placeholder: 'Enter a heading',
@@ -20,25 +20,25 @@ export const EDITOR_JS_TOOLS = {
     },
   },
   paragraph: {
-    class: Paragraph,
+    class: Paragraph as unknown as ToolConstructable,
     inlineToolbar: true,
   },
   list: {
-    class: EditorjsList,
+    class: EditorjsList as unknown as ToolConstructable,
     inlineToolbar: true,
     config: {
       defaultStyle: 'unordered'
     }
   },
   image: {
-    class: ImageTool,
+    class: ImageTool as unknown as ToolConstructable,
     config: {
       // endpoints: {
       //   byFile: 'http://localhost:8008/uploadFile', // Your backend file uploader endpoint
       //   byUrl: 'http://localhost:8008/fetchUrl', // Your endpoint that provides uploading by Url
       // },
       uploader: {
-        uploadByFile: async (file) => {
+        uploadByFile: async (file:File) => {
           console.log('uploading');
           const supabase = createClient();
           const fileName = `/images/${file.name}`;
@@ -63,7 +63,7 @@ export const EDITOR_JS_TOOLS = {
             file: { url: publicUrlData.publicUrl },
           };
         },
-        uploadByUrl: async (url) => {
+        uploadByUrl: async (url:string) => {
           const response = await fetch(url);
           const file = await response.blob();
           const fileName = url.split('/').pop();
@@ -89,24 +89,24 @@ export const EDITOR_JS_TOOLS = {
     }
   },
   delimiter: Delimiter,
-  linkTool: {
-    class: LinkTool,
-    config: {
-      endpoint: 'http://localhost:8008/fetchUrl',
-    }
-  },
-  attaches: {
-    class: AttachesTool,
-    config: {
-      endpoint: 'http://localhost:8008/uploadFile'
-    }
-  },
-  embed: {
-    class: Embed,
-    config: {
-      services: {
-        youtube: true
-      }
-    }
-  }
+  // linkTool: {
+  //   class: LinkTool,
+  //   config: {
+  //     endpoint: 'http://localhost:8008/fetchUrl',
+  //   }
+  // },
+  // attaches: {
+  //   class: AttachesTool,
+  //   config: {
+  //     endpoint: 'http://localhost:8008/uploadFile'
+  //   }
+  // },
+  // embed: {
+  //   class: Embed,
+  //   config: {
+  //     services: {
+  //       youtube: true
+  //     }
+  //   }
+  // }
 };
