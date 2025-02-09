@@ -16,3 +16,9 @@
 3. Contact form
 4. Dark mode
 5. editorjs for image,code highlight;preview,draft,tags,edit existing blog
+
+
+each folder has
+    unique id
+    name
+    parent ID (null for root folder)

@@ -1,5 +1,4 @@
 'use client'
-
 import { EDITOR_JS_TOOLS } from '@/lib/editorConfig';
 import { createClient } from '@/lib/supabase/client';
 import EditorJS, { OutputData } from '@editorjs/editorjs';
@@ -72,7 +71,7 @@ interface EditorProps {
 }
 
 
-const Editor: React.FC<EditorProps> = ({initialData, id }) => {
+const Editor: React.FC<EditorProps> = ({ initialData, id }) => {
     const ref = useRef<EditorJS | null>(null);
     const [readOnly, setReadOnly] = useState(true);
 
@@ -96,16 +95,18 @@ const Editor: React.FC<EditorProps> = ({initialData, id }) => {
         });
 
         return () => {
-            ref.current?.destroy();
-            ref.current = null;
+            if (ref.current) {
+                ref.current?.destroy();
+                ref.current = null;
+            }
         };
     }, [initialData, readOnly]);
 
-    const extractHeader = (data:OutputData) => {
+    const extractHeader = (data: OutputData) => {
         const firstBlock = data['blocks']?.[0];
         return firstBlock?.type === "header" ? firstBlock.data.text : null;
     };
-      
+
     const handleSave = async () => {
         if (ref.current) {
             const data = await ref.current.save();
@@ -113,7 +114,7 @@ const Editor: React.FC<EditorProps> = ({initialData, id }) => {
             const supabase = createClient();
             const { error } = await supabase
                 .from('notes')
-                .update({ content: data ,title:title})
+                .update({ content: data, title: title })
                 .eq('id', id);
 
             if (error) {

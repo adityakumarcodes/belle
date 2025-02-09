@@ -6,9 +6,10 @@ import { useEffect, useState } from "react";
 import Tooltipp from "./Tooltipp";
 
 interface FolderType {
-    name: string;
+    title: string;
     id: number;
-    folders?: FolderType[];
+    folders: FolderType[];
+    parent_id: number | null;
 }
 
 
@@ -29,24 +30,45 @@ const Tree = () => {
     useEffect(() => {
         const fetchFolders = async () => {
             const supabase = createClient();
-            const { data, error } = await supabase.from("notes").select("id,title");
+            const { data, error } = await supabase.from("notes").select("*");
             if (error) {
                 console.error("Error fetching notes:", error.message);
                 return null;
             }
-            const mappedFolders: FolderType[] = (data || []).map((x) => ({
-                name: x.title,
-                id: x.id.toString(),
-                folders: [],
-            }));
-            setFolders(mappedFolders);
+            // console.log('imp data')
+            // console.log(data)
+            // const mappedFolders: FolderType[] = (data || []).map((x) => ({
+            //     name: x.title,
+            //     id: x.id.toString(),
+            //     folders: [],
+            // }));
+            // setFolders(mappedFolders);
+            // console.log(buildNestedFoldersMap(data))
+            setFolders(buildNestedFoldersMap(data));
         };
         fetchFolders();
     }, []);
 
+    // transforms a flat list of folders into a nested tree structure.
+    const buildNestedFoldersMap = (flatList: FolderType[]): FolderType[] => {
+        const idMap = new Map<number, FolderType>(flatList.map(folder => [folder.id, { ...folder, folders: [] }]));
+        const tree: FolderType[] = [];
+
+        flatList.forEach(folder => {
+            const currentFolder = idMap.get(folder.id);
+            if (!currentFolder) return;
+            if (folder.parent_id === null) {
+                tree.push(currentFolder);//root folder, push to tree array
+            } else {
+                idMap.get(folder.parent_id)?.folders.push(currentFolder);// find its parent in idMap and add it to its folders[]
+            }
+        });
+        return tree;
+    };
+
     return <ul>
         {folders?.map(folder => (
-            <Folder key={folder.name} folder={folder} />
+            <Folder key={folder.id} folder={folder} />
         ))}
     </ul>;
 }
@@ -58,13 +80,13 @@ interface FolderProps {
 const Folder = ({ folder }: FolderProps) => {
     const [isOpen, setIsOpen] = useState(false);
 
-    return <li className="ml-2" key={folder.name}>
+    return <li className="ml-2" >
         <span className={`flex items-start justify-between group hover:bg-gray-200 rounded-md ${isOpen ? 'bg-gray-200' : ''}`}>
             <div className="flex gap-1.5 items-center">
                 <ChevronRight strokeWidth={1.25} onClick={() => setIsOpen(!isOpen)} className={`ml-1 transition-transform duration-200 group-hover:inline hidden m-1 text-gray-500 hover:bg-gray-300 rounded-md ${isOpen ? 'rotate-90' : ''}`} />
                 {folder.folders && folder.folders.length === 0 ? <FileText strokeWidth={1.25} className="text-gray-500 inline group-hover:hidden ml-2 w-6 h-6 " /> : <p className="ml-2 w-6 h-6 inline group-hover:hidden">🧠</p>}
                 <Link href={`/admin/notes/${folder.id}`}>
-                    <p className="line-clamp-1 select-none">{folder.name}</p>
+                    <p className="line-clamp-1 select-none">{folder.title}</p>
                 </Link>
             </div>
             <div className="flex ">
@@ -77,7 +99,7 @@ const Folder = ({ folder }: FolderProps) => {
             </div>
         </span>
         {isOpen && folder.folders && folder.folders.length === 0 && <p className="text-gray-400 ml-6">No pages inside</p>}
-        {isOpen && <ul>{folder.folders?.map(subFolder => <Folder folder={subFolder} key={subFolder.name} />)}</ul>}
+        {isOpen && <ul>{folder.folders?.map(subFolder => <Folder folder={subFolder} key={subFolder.title} />)}</ul>}
     </li>;
 }
 

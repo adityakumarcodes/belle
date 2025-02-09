@@ -1,50 +1,44 @@
 'use client'
 const Editor = dynamic(() => import("@/components/Editor"), { ssr: false });
-import { Heart, Lock, MessageSquareText, Trash2, Undo } from 'lucide-react'
 import { useEffect, useState } from 'react';
 import { createClient } from '@/lib/supabase/client';
 import { useParams } from 'next/navigation';
 import { OutputData } from '@editorjs/editorjs';
 import dynamic from 'next/dynamic';
+import ThreeDotMenu from '@/components/DropdownMenu';
 
 const NoteDetails = () => {
   const params = useParams();
   const id = params?.id ?? "";
-  const [data, setData] = useState<OutputData>({ blocks: []});
+  const [data, setData] = useState<OutputData>({ blocks: [] });
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null); 
-  const options = [
-    { icon: Heart, title: 'Favourite' },
-    { icon: Undo, title: 'Undo' },
-    { icon: Lock, title: 'Lock' },
-    { icon: MessageSquareText, title: 'Comments' },
-    { icon: Trash2, title: 'Trash' },
-  ]
+  const [error, setError] = useState<string | null>(null);
+
 
 
   useEffect(() => {
-    if(!id) return ;
+    if (!id) return;
 
-    const fetchNoteDetails = async () => {      
+    const fetchNoteDetails = async () => {
       setLoading(true);
       console.log("Fetching note with id:", id);
       const supabase = createClient();
-      const { data, error } = await supabase.from("notes").select("content").eq('id',id).single();
+      const { data, error } = await supabase.from("notes").select("content").eq('id', id).single();
       if (error) {
         console.error("Error fetching notes:", error.message);
         setError(error.message);
         return null;
       }
       console.log("Fetched data:", data);
-      setData(data?.content || { blocks: [] }); 
-      setLoading(false); 
+      setData(data?.content || { blocks: [] });
+      setLoading(false);
     };
     fetchNoteDetails();
   }, [id]);
 
 
   if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error}</p>; 
+  if (error) return <p>Error: {error}</p>;
 
   return (
     <div className='flex flex-col h-screen overflow-y-scroll'>
@@ -66,19 +60,9 @@ const NoteDetails = () => {
             <li className="text-gray-500">Current Page</li>
           </ol>
         </nav>
-        <div className='flex space-x-4 ml-6'>
-          {options.map((op) => (
-            <span
-              className='flex items-center gap-1.5 group hover:bg-gray-200 rounded-md p-1.5 cursor-pointer'
-              key={op.title}
-            >
-              <op.icon className="w-5 h-5 text-gray-600 group-hover:text-black" />
-              <p className="text-gray-700 group-hover:text-black select-none">{op.title}</p>
-            </span>
-          ))}
-        </div>
+        <ThreeDotMenu />
       </div>
-      <Editor initialData={data} id={Number(id)}/>
+      <Editor initialData={data} id={Number(id)} />
     </div>
   )
 }
