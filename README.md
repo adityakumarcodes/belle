@@ -22,3 +22,55 @@ each folder has
     unique id
     name
     parent ID (null for root folder)
+
+
+    <!-- const [location, setLocation] = useState({});
+
+    const fetchLocationDetails = async (latitude: number, longitude: number) => {
+        try {
+            const response = await fetch(`https://ipapi.co/json`);
+            const data = await response.json();
+            setLocation({
+                ip: data.ip,
+                network: data.network,
+                version: data.version,
+                city: data.city,
+                region: data.region,
+                country_namee: data.country_namee,
+                latitude: data.latitude,
+                longitude: data.longitude,
+                timezone: data.timezone,
+                country_calling_code: data.country_calling_code,
+                currency_name: data.currency_name,
+                org: data.org
+            });
+        } catch (error) {
+            console.error("Error fetching location details:", error);
+        }
+    };
+
+    const getUserLocation = () => {
+        if ("geolocation" in navigator) {
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    const { latitude, longitude } = position.coords;
+                    fetchLocationDetails(latitude, longitude);
+                },
+                (error) => {
+                    console.error("Geolocation error:", error.message);
+                    setLocation({ ip: "N/A", country: "N/A", timezone: "N/A" });
+                }
+            );
+        } else {
+            console.log("Geolocation is not supported.");
+        }
+    };
+
+    useEffect(() => {
+        getUserLocation();
+    }, []);
+    
+    <div className="p-4 shadow-lg">
+            <p><strong>IP Address:</strong> {JSON.stringify(location)}</p>
+            <button onClick={getUserLocation} className="mt-2">Refresh</button>
+    </div> -->

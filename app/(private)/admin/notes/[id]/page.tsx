@@ -1,10 +1,10 @@
 'use client'
-const Editor = dynamic(() => import("@/components/Editor"), { ssr: false });
+import dynamic from 'next/dynamic';
+const RichTextEditor = dynamic(() => import("@/components/RichTextEditor"), { ssr: false });
 import { useEffect, useState } from 'react';
 import { createClient } from '@/lib/supabase/client';
 import { useParams } from 'next/navigation';
 import { OutputData } from '@editorjs/editorjs';
-import dynamic from 'next/dynamic';
 import ThreeDotMenu from '@/components/DropdownMenu';
 
 const NoteDetails = () => {
@@ -29,7 +29,7 @@ const NoteDetails = () => {
         setError(error.message);
         return null;
       }
-      console.log("Fetched data:", data);
+      // console.log("Fetched data:", data);
       setData(data?.content || { blocks: [] });
       setLoading(false);
     };
@@ -62,7 +62,7 @@ const NoteDetails = () => {
         </nav>
         <ThreeDotMenu />
       </div>
-      <Editor initialData={data} id={Number(id)} />
+      <RichTextEditor initialData={data} id={Number(id)} />
     </div>
   )
 }

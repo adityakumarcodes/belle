@@ -71,17 +71,11 @@ interface EditorProps {
 }
 
 
-const Editor: React.FC<EditorProps> = ({ initialData, id }) => {
+const RichTextEditor: React.FC<EditorProps> = ({ initialData, id }) => {
     const ref = useRef<EditorJS | null>(null);
     const [readOnly, setReadOnly] = useState(true);
 
     useEffect(() => {
-
-        if (ref.current) {
-            ref.current.destroy();
-            ref.current = null;
-        }
-
         const editor = new EditorJS({
             holder: "editorjs",
             tools: EDITOR_JS_TOOLS,
@@ -144,4 +138,4 @@ const Editor: React.FC<EditorProps> = ({ initialData, id }) => {
 
 }
 
-export default Editor
+export default RichTextEditor

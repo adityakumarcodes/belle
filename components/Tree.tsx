@@ -80,7 +80,7 @@ interface FolderProps {
 const Folder = ({ folder }: FolderProps) => {
     const [isOpen, setIsOpen] = useState(false);
 
-    return <li className="ml-2" >
+    return <li className="ml-2" key={folder.title}>
         <span className={`flex items-start justify-between group hover:bg-gray-200 rounded-md ${isOpen ? 'bg-gray-200' : ''}`}>
             <div className="flex gap-1.5 items-center">
                 <ChevronRight strokeWidth={1.25} onClick={() => setIsOpen(!isOpen)} className={`ml-1 transition-transform duration-200 group-hover:inline hidden m-1 text-gray-500 hover:bg-gray-300 rounded-md ${isOpen ? 'rotate-90' : ''}`} />
