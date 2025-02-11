@@ -1,13 +1,13 @@
 import * as  Tooltip from "@radix-ui/react-tooltip";
 import { ReactNode } from "react";
 
-interface TooltippProps {
+interface TextBubbleProps {
     children: ReactNode;
     msg: string;
     dir:'top'|'bottom'|'right'|'left';
 }
 
-const Tooltipp: React.FC<TooltippProps> = ({ children, msg,dir }) => {
+const TextBubble: React.FC<TextBubbleProps> = ({ children, msg,dir }) => {
     return <Tooltip.Provider>
         <Tooltip.Root>
             <Tooltip.Trigger >
@@ -23,4 +23,4 @@ const Tooltipp: React.FC<TooltippProps> = ({ children, msg,dir }) => {
 
 }
 
-export default Tooltipp
+export default TextBubble

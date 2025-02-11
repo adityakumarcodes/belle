@@ -1,11 +1,11 @@
 'use client'
 import dynamic from 'next/dynamic';
-const RichTextEditor = dynamic(() => import("@/components/RichTextEditor"), { ssr: false });
+const MyTextEditor = dynamic(() => import("@/components/MyTextEditor"), { ssr: false });
 import { useEffect, useState } from 'react';
 import { createClient } from '@/lib/supabase/client';
 import { useParams } from 'next/navigation';
 import { OutputData } from '@editorjs/editorjs';
-import ThreeDotMenu from '@/components/DropdownMenu';
+import ThreeDotMenu from '@/components/ThreeDotMenu';
 
 const NoteDetails = () => {
   const params = useParams();
@@ -42,7 +42,7 @@ const NoteDetails = () => {
 
   return (
     <div className='flex flex-col h-screen overflow-y-scroll'>
-      <div className='m-2 flex items-center justify-between'>
+      <div className='m-2 md:flex items-center justify-between hidden'>
         <nav className="text-gray-600 text-sm">
           <ol className="list-reset flex">
             <li>
@@ -62,7 +62,7 @@ const NoteDetails = () => {
         </nav>
         <ThreeDotMenu />
       </div>
-      <RichTextEditor initialData={data} id={Number(id)} />
+      <MyTextEditor initialData={data} id={Number(id)} />
     </div>
   )
 }

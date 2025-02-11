@@ -32,7 +32,7 @@ const BlogsPage = () => {
             <li className="text-gray-500">Current Page</li>
           </ol>
         </nav>
-        <div className='flex space-x-4 ml-6'>
+        <div className='flex space-x-4 ml-6 flex-wrap'>
           {options.map((op) => (
             <span
               className='flex items-center gap-1.5 group hover:bg-gray-200 rounded-md p-1.5 cursor-pointer'

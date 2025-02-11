@@ -71,30 +71,33 @@ interface EditorProps {
 }
 
 
-const RichTextEditor: React.FC<EditorProps> = ({ initialData, id }) => {
-    const ref = useRef<EditorJS | null>(null);
-    const [readOnly, setReadOnly] = useState(true);
+const MyTextEditor: React.FC<EditorProps> = ({ initialData, id }) => {
+    const editorInstance = useRef<EditorJS | null>(null);
+    const [editorData, setEditorData] = useState(initialData);
+    const [isReadOnly, setIsReadOnly] = useState(true);
 
     useEffect(() => {
+
         const editor = new EditorJS({
             holder: "editorjs",
             tools: EDITOR_JS_TOOLS,
-            data: initialData || INITIAL_DATA,
+            data: editorData || INITIAL_DATA,
             onReady: () => {
                 console.log("Editor.js is ready to work!");
-                ref.current = editor;
+                editorInstance.current = editor;
             },
             placeholder: "Type 'Tab' for commands",
-            readOnly: readOnly,
+            readOnly: isReadOnly,
         });
 
+
         return () => {
-            if (ref.current) {
-                ref.current?.destroy();
-                ref.current = null;
+            if (editorInstance.current) {
+                editorInstance.current?.destroy();
+                editorInstance.current = null;
             }
         };
-    }, [initialData, readOnly]);
+    }, [initialData, isReadOnly]);
 
     const extractHeader = (data: OutputData) => {
         const firstBlock = data['blocks']?.[0];
@@ -102,8 +105,9 @@ const RichTextEditor: React.FC<EditorProps> = ({ initialData, id }) => {
     };
 
     const handleSave = async () => {
-        if (ref.current) {
-            const data = await ref.current.save();
+        if (editorInstance.current) {
+            const data = await editorInstance.current.save();
+            setEditorData(data)
             const title = extractHeader(data) || `Note_${id}`;
             const supabase = createClient();
             const { error } = await supabase
@@ -118,19 +122,26 @@ const RichTextEditor: React.FC<EditorProps> = ({ initialData, id }) => {
                 toast.success("Content saved successfully!");
             }
         }
+
+        toggleReadOnly();
     };
 
 
-    const toggleReadOnly = () => {
-        setReadOnly((prev) => !prev);
+    const toggleReadOnly = async () => {
+        if (editorInstance.current) {
+            await editorInstance.current.readOnly.toggle();
+            setIsReadOnly((prev) => !prev);
+            console.log("Read-Only Mode:", !isReadOnly);
+        }
+
     };
 
     return <div className="p-2 text-left">
-        <button className="btn" onClick={handleSave} disabled={readOnly}>
+        <button className="btn" onClick={handleSave} disabled={isReadOnly}>
             Save
         </button>
         <button className="btn" onClick={toggleReadOnly}>
-            {readOnly ? "Edit mode" : "Read mode"}
+            {isReadOnly ? "Edit mode" : "Read mode"}
         </button>
         <div className="px-2 py-2" id='editorjs' />
         {/* <Image src='https://cdn.pixabay.com/photo/2023/07/31/16/37/sugar-apple-8161386_1280.jpg' alt={''} width={500} height={50} className='overflow-clip rounded-md object-fit m-6' /> */}
@@ -138,4 +149,4 @@ const RichTextEditor: React.FC<EditorProps> = ({ initialData, id }) => {
 
 }
 
-export default RichTextEditor
+export default MyTextEditor

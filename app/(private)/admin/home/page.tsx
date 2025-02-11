@@ -9,7 +9,7 @@ const Home = () => {
         { label: 'Backup', icon: CloudUpload, link: '/admin/' },
         { label: 'Blogs', icon: Feather, link: '/admin/' },
         { label: 'Settings', icon: Bolt, link: '/admin/' },
-        { label: 'Trash', icon: Trash2, link: '/admin/' },
+        { label: 'Trash', icon: Trash2, link: '/admin/home/trash' },
     ]
     const [isFullscreen, setIsFullscreen] = useState(false);
 

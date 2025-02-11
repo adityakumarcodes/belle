@@ -3,7 +3,8 @@ import { createClient } from "@/lib/supabase/client";
 import { ChevronRight, Plus, FileText, Pin } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import Tooltipp from "./Tooltipp";
+import TextBubble from "./TextBubble";
+import Skeleton from "./Skeleton";
 
 interface FolderType {
     title: string;
@@ -26,6 +27,7 @@ const Tree = () => {
     //     { name: 'Book3', folders: [] },
     // ];
     const [folders, setFolders] = useState<FolderType[] | null>(null);
+    const [loading, setLoading] = useState(true); 
 
     useEffect(() => {
         const fetchFolders = async () => {
@@ -33,18 +35,11 @@ const Tree = () => {
             const { data, error } = await supabase.from("notes").select("*");
             if (error) {
                 console.error("Error fetching notes:", error.message);
+                setLoading(false);
                 return null;
             }
-            // console.log('imp data')
-            // console.log(data)
-            // const mappedFolders: FolderType[] = (data || []).map((x) => ({
-            //     name: x.title,
-            //     id: x.id.toString(),
-            //     folders: [],
-            // }));
-            // setFolders(mappedFolders);
-            // console.log(buildNestedFoldersMap(data))
             setFolders(buildNestedFoldersMap(data));
+            setLoading(false);
         };
         fetchFolders();
     }, []);
@@ -67,7 +62,7 @@ const Tree = () => {
     };
 
     return <ul>
-        {folders?.map(folder => (
+        {loading?<Skeleton count={7}/>:folders?.map(folder => (
             <Folder key={folder.id} folder={folder} />
         ))}
     </ul>;
@@ -90,12 +85,12 @@ const Folder = ({ folder }: FolderProps) => {
                 </Link>
             </div>
             <div className="flex ">
-                <Tooltipp msg="Pin" dir={"bottom"}>
+                <TextBubble msg="Pin" dir={"bottom"}>
                     <Pin strokeWidth={1.5} className={`group-hover:opacity-100 opacity-0 m-1 text-gray-500 hover:bg-gray-300 rounded-md`} />
-                </Tooltipp>
-                <Tooltipp msg="Add a page inside" dir={"bottom"}>
+                </TextBubble>
+                <TextBubble msg="Add a page inside" dir={"bottom"}>
                     <Plus strokeWidth={1.5} className={`group-hover:opacity-100 opacity-0 m-1 text-gray-500 hover:bg-gray-300 rounded-md`} />
-                </Tooltipp>
+                </TextBubble>
             </div>
         </span>
         {isOpen && folder.folders && folder.folders.length === 0 && <p className="text-gray-400 ml-6">No pages inside</p>}

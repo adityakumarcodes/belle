@@ -1,3 +1,4 @@
+// import Embed from '@editorjs/embed';
 import Paragraph from "@editorjs/paragraph";
 import Header from "@editorjs/header";
 import EditorjsList from "@editorjs/list";
@@ -7,7 +8,6 @@ import ImageTool from "@editorjs/image";
 import { createClient } from "./supabase/client";
 // import LinkTool from '@editorjs/link';
 // import AttachesTool from '@editorjs/attaches';
-// import Embed from '@editorjs/embed';
 
 export const EDITOR_JS_TOOLS = {
   header: {
@@ -88,7 +88,7 @@ export const EDITOR_JS_TOOLS = {
       }
     }
   },
-  delimiter: Delimiter,
+  delimiter: Delimiter as unknown as ToolConstructable,
   // linkTool: {
   //   class: LinkTool,
   //   config: {
@@ -102,11 +102,11 @@ export const EDITOR_JS_TOOLS = {
   //   }
   // },
   // embed: {
-  //   class: Embed,
-  //   config: {
-  //     services: {
-  //       youtube: true
-  //     }
-  //   }
+    // class: Embed,
+    // config: {
+    //   services: {
+    //     youtube: true
+    //   }
+    // }
   // }
 };
