@@ -10,7 +10,7 @@ export default function ThreeDotMenu() {
         { icon: Undo, title: 'Undo' },
         { icon: Lock, title: 'Lock' },
         { icon: MessageSquareText, title: 'Comments' },
-        { icon: Trash2, title: 'Trash' },
+        { icon: Trash2, title: 'Move to Trash' },
       ]
 
     return (

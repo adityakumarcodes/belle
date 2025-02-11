@@ -32,7 +32,7 @@ const Tree = () => {
     useEffect(() => {
         const fetchFolders = async () => {
             const supabase = createClient();
-            const { data, error } = await supabase.from("notes").select("*");
+            const { data, error } = await supabase.from("notes").select("*").eq('status_flag', 'active');
             if (error) {
                 console.error("Error fetching notes:", error.message);
                 setLoading(false);
@@ -61,18 +61,58 @@ const Tree = () => {
         return tree;
     };
 
+    const addFolder = async (parentId: number | null) => {
+        const supabase = createClient();
+        // If your id column is SERIAL (auto-incremented) in Supabase, you don’t need to generate an ID manually.
+        // Just insert the record and let Supabase handle it.
+        const newFolder = {
+            title: "New Page",
+            parent_id: parentId, // This makes it a child of the given folder
+        };
+    
+        const { data, error } = await supabase.from("notes").insert([newFolder]).select("*");
+        if (error) {
+            console.error("Error adding folder:", error.message);
+            return;
+        }
+    
+        // Update state locally without refetching from the database
+        setFolders(prevFolders => {
+            if (!prevFolders) return null;
+            const updatedFolders = [...prevFolders];
+    
+            // Helper function to find and add the new folder in the right place
+            const insertIntoTree = (folders: FolderType[]): FolderType[] => {
+                return folders.map(folder => {
+                    if (folder.id === parentId) {
+                        return { ...folder, folders: [...folder.folders, data[0]] };
+                    } else if (folder.folders.length > 0) {
+                        return { ...folder, folders: insertIntoTree(folder.folders) };
+                    }
+                    return folder;
+                });
+            };
+    
+            return parentId === null
+                ? [...updatedFolders, data[0]]
+                : insertIntoTree(updatedFolders);
+        });
+    };
+    
+
     return <ul>
         {loading?<Skeleton count={7}/>:folders?.map(folder => (
-            <Folder key={folder.id} folder={folder} />
+            <Folder key={folder.id} folder={folder} addFolder={addFolder}/>
         ))}
     </ul>;
 }
 
 interface FolderProps {
     folder: FolderType;
+    addFolder: (parentId: number | null) => void;
 }
 
-const Folder = ({ folder }: FolderProps) => {
+const Folder = ({ folder,addFolder }: FolderProps) => {
     const [isOpen, setIsOpen] = useState(false);
 
     return <li className="ml-2" key={folder.title}>
@@ -89,12 +129,12 @@ const Folder = ({ folder }: FolderProps) => {
                     <Pin strokeWidth={1.5} className={`group-hover:opacity-100 opacity-0 m-1 text-gray-500 hover:bg-gray-300 rounded-md`} />
                 </TextBubble>
                 <TextBubble msg="Add a page inside" dir={"bottom"}>
-                    <Plus strokeWidth={1.5} className={`group-hover:opacity-100 opacity-0 m-1 text-gray-500 hover:bg-gray-300 rounded-md`} />
+                    <Plus strokeWidth={1.5} className={`group-hover:opacity-100 opacity-0 m-1 text-gray-500 hover:bg-gray-300 rounded-md`}         onClick={() => addFolder(folder.id)}/>
                 </TextBubble>
             </div>
         </span>
         {isOpen && folder.folders && folder.folders.length === 0 && <p className="text-gray-400 ml-6">No pages inside</p>}
-        {isOpen && <ul>{folder.folders?.map(subFolder => <Folder folder={subFolder} key={subFolder.title} />)}</ul>}
+        {isOpen && <ul>{folder.folders?.map(subFolder => <Folder folder={subFolder} key={subFolder.title} addFolder={addFolder}/>)}</ul>}
     </li>;
 }
 

@@ -1,5 +1,5 @@
 'use client'
-import { Bolt, CloudUpload, Feather, Maximize, Minimize, Trash2, VenetianMask } from 'lucide-react'
+import { Bolt, CloudUpload, Feather, Maximize, Minimize, VenetianMask } from 'lucide-react'
 import Link from 'next/link'
 import { useState } from 'react';
 
@@ -9,7 +9,6 @@ const Home = () => {
         { label: 'Backup', icon: CloudUpload, link: '/admin/' },
         { label: 'Blogs', icon: Feather, link: '/admin/' },
         { label: 'Settings', icon: Bolt, link: '/admin/' },
-        { label: 'Trash', icon: Trash2, link: '/admin/home/trash' },
     ]
     const [isFullscreen, setIsFullscreen] = useState(false);
 

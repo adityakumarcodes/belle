@@ -74,3 +74,43 @@ each folder has
             <p><strong>IP Address:</strong> {JSON.stringify(location)}</p>
             <button onClick={getUserLocation} className="mt-2">Refresh</button>
     </div> -->
+
+
+
+<!-- Soft Delete (Move to Trash) -->
+export const softDeleteItem = async (id: string) => {
+  const { error } = await supabase
+    .from('items')
+    .update({ status_flag: 'inactive' })
+    .eq('id', id);
+
+  if (error) {
+    console.error("Error deleting item:", error.message);
+  }
+};
+
+<!-- Fetch Deleted Items (Trash) -->
+export const fetchDeletedItems = async () => {
+  const { data, error } = await supabase
+    .from('items')
+    .select('*')
+    .eq('status_flag', 'inactive');
+
+  if (error) {
+    console.error("Error fetching deleted items:", error.message);
+  }
+
+  return data || [];
+};
+
+<!-- Restore Item from Trash -->
+export const restoreItem = async (id: string) => {
+  const { error } = await supabase
+    .from('items')
+    .update({ status_flag: 'active' })
+    .eq('id', id);
+
+  if (error) {
+    console.error("Error restoring item:", error.message);
+  }
+};

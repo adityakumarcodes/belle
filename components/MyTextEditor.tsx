@@ -86,7 +86,7 @@ const MyTextEditor: React.FC<EditorProps> = ({ initialData, id }) => {
                 console.log("Editor.js is ready to work!");
                 editorInstance.current = editor;
             },
-            placeholder: "Type 'Tab' for commands",
+            placeholder: "Type '/' for commands",
             readOnly: isReadOnly,
         });
 
@@ -141,7 +141,7 @@ const MyTextEditor: React.FC<EditorProps> = ({ initialData, id }) => {
             Save
         </button>
         <button className="btn" onClick={toggleReadOnly}>
-            {isReadOnly ? "Edit mode" : "Read mode"}
+            {isReadOnly ? "Edit" : "Read"}
         </button>
         <div className="px-2 py-2" id='editorjs' />
         {/* <Image src='https://cdn.pixabay.com/photo/2023/07/31/16/37/sugar-apple-8161386_1280.jpg' alt={''} width={500} height={50} className='overflow-clip rounded-md object-fit m-6' /> */}

@@ -1,7 +1,7 @@
 'use client'
 import Link from 'next/link'
 import Tree from './Tree'
-import { ArrowUpRight, House, Search } from 'lucide-react'
+import { ArrowUpRight, House, Plus, Search, Trash2 } from 'lucide-react'
 
 type MenuItem = {
     icon: React.ElementType;
@@ -14,6 +14,8 @@ const Sidebar = () => {
     const menuItems: MenuItem[] = [
         { label: 'Home', icon: House, link: '/admin/home' },
         { label: 'Search', icon: Search, link: '/admin/' },
+        { label: 'New Page', icon: Plus, link: '/admin/' },
+        { label: 'Trash', icon: Trash2, link: '/admin/trash' },
     ]
     return (
         <>
