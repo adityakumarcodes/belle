@@ -17,7 +17,7 @@ export default function ThreeDotMenu() {
         <DropdownMenu.Root>
             <DropdownMenu.Trigger asChild>
                 <button
-                    className="p-2 rounded-full hover:bg-gray-200 transition focus:outline-none focus:bg-gray-200"
+                    className="p-2 rounded-full hover:bg-gray-200 transition focus:outline-hidden focus:bg-gray-200"
                     aria-label="Options"
                 >
                     <EllipsisVertical />
@@ -34,7 +34,7 @@ export default function ThreeDotMenu() {
                         className="min-w-[150px] bg-white shadow-md rounded-md p-2 z-50"
                     >
                         {options.map((op)=>{
-                            return <DropdownMenu.Item key={op.title} className="flex items-center gap-1.5 group hover:bg-gray-200 p-2 rounded-md cursor-pointer focus:outline-none focus:bg-gray-200">
+                            return <DropdownMenu.Item key={op.title} className="flex items-center gap-1.5 group hover:bg-gray-200 p-2 rounded-md cursor-pointer focus:outline-hidden focus:bg-gray-200">
                             <op.icon className="w-5 h-5 text-gray-600 group-hover:text-black" />
                             <p className="text-gray-700 group-hover:text-black select-none">{op.title}</p>
                         </DropdownMenu.Item>                        

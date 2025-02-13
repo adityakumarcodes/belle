@@ -14,7 +14,7 @@ const TextBubble: React.FC<TextBubbleProps> = ({ children, msg,dir }) => {
                 {children}
             </Tooltip.Trigger >
             <Tooltip.Portal>
-                <Tooltip.Content side={dir} sideOffset={10} className="rounded bg-gray-200 p-2 ">
+                <Tooltip.Content side={dir} sideOffset={10} className="rounded-sm bg-gray-200 p-2 ">
                     <p>{msg}</p>
                 </Tooltip.Content>
             </Tooltip.Portal>
