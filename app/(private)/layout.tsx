@@ -5,6 +5,7 @@ import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "../globals.css";
 import MobileLayout from "@/components/MobileLayout";
+import ReactQueryProvider from "@/components/ReactQueryProvider";
 
 const font = Poppins({ subsets: ["latin"], weight: '300' });
 
@@ -21,23 +22,24 @@ export default function AdminLayout({
 
     return <html lang="en">
         <body className={font.className}>
-            <div>
-                <ToastContainer theme="light" position="bottom-right" />
-                {/* Desktop */}
-                <div className="hidden md:block">
-                    <div className='flex flex-col bg-gray-50 w-64 p-1.5 fixed h-screen rounded-md'>
-                        <Sidebar />
+            <ReactQueryProvider>
+                <div>
+                    <ToastContainer theme="light" position="bottom-right" />
+                    {/* Desktop */}
+                    <div className="hidden md:block">
+                        <div className='flex flex-col bg-gray-50 w-64 p-1.5 fixed h-screen rounded-md'>
+                            <Sidebar />
+                        </div>
+                        <div className="ml-64">
+                            {children}
+                        </div>
                     </div>
-                    <div className="ml-64">
+                    {/* Mobile */}
+                    <MobileLayout>
                         {children}
-                    </div>
+                    </MobileLayout>
                 </div>
-                {/* Mobile */}
-                <MobileLayout>
-                    {children}
-                </MobileLayout>
-            </div>
+            </ReactQueryProvider>
         </body>
     </html>;
 }
-

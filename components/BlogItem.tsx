@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { assets } from '@/assets/assets';
+import { assets } from '@/public/assets';
 
 // Define the type for the component props
 interface BlogItemProps {

@@ -1,9 +1,9 @@
 'use client'
 import { EDITOR_JS_TOOLS } from '@/lib/editorConfig';
 import { createClient } from '@/lib/supabase/client';
-import EditorJS, { OutputData } from '@editorjs/editorjs';
 import { useEffect, useRef, useState } from 'react';
 import { toast } from 'react-toastify';
+import EditorJS, { OutputData } from '@editorjs/editorjs';
 
 const INITIAL_DATA = {
     time: 1701368244004,

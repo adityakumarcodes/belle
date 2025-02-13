@@ -1,7 +1,7 @@
 'use client'
 import * as Popover from "@radix-ui/react-popover";
 import Image from "next/image";
-import { assets } from "@/assets/assets";
+import { assets } from "@/public/assets";
 import Link from "next/link";
 import ToggleTheme from "./ToggleTheme";
 import { signOut } from '@/app/(community)/login/actions'

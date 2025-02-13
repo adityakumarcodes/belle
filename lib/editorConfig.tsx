@@ -33,6 +33,7 @@ export const EDITOR_JS_TOOLS = {
   image: {
     class: ImageTool as unknown as ToolConstructable,
     config: {
+      captionPlaceholder:'Add an alt text for the image',
       // endpoints: {
       //   byFile: 'http://localhost:8008/uploadFile', // Your backend file uploader endpoint
       //   byUrl: 'http://localhost:8008/fetchUrl', // Your endpoint that provides uploading by Url
@@ -102,11 +103,11 @@ export const EDITOR_JS_TOOLS = {
   //   }
   // },
   // embed: {
-    // class: Embed,
-    // config: {
-    //   services: {
-    //     youtube: true
-    //   }
-    // }
+  //   class: Embed,
+  //   config: {
+  //     services: {
+  //       youtube: true
+  //     }
+  //   }
   // }
 };

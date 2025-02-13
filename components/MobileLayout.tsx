@@ -8,10 +8,7 @@ import { motion } from "motion/react";
 export default function MobileLayout({ children }: { children: React.ReactNode }) {
     const [isOpen, setIsOpen] = useState(false);
 
-    return (
-        // <div className="flex">
-
-        <div className="p-6 block md:hidden">
+    return <div className="p-4 block md:hidden">
             {/* Menu Button */}
             <div className="flex justify-between items-center">
                 <button onClick={() => setIsOpen(!isOpen)}>
@@ -35,7 +32,5 @@ export default function MobileLayout({ children }: { children: React.ReactNode }
                 {children}
             </div>
 
-        </div>
-        // </div>
-    );
+        </div>;
 }

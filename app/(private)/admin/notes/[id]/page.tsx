@@ -14,8 +14,6 @@ const NoteDetails = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-
-
   useEffect(() => {
     if (!id) return;
 
@@ -23,7 +21,7 @@ const NoteDetails = () => {
       setLoading(true);
       console.log("Fetching note with id:", id);
       const supabase = createClient();
-      const { data, error } = await supabase.from("notes").select("content").eq('id', id).single();
+      const { data, error } = await supabase.from("notes").select("content,title").eq('id', id).single();
       if (error) {
         console.error("Error fetching notes:", error.message);
         setError(error.message);
@@ -31,6 +29,9 @@ const NoteDetails = () => {
       }
       // console.log("Fetched data:", data);
       setData(data?.content || { blocks: [] });
+      if (data?.title) {
+        document.title = data.title;
+      }
       setLoading(false);
     };
     fetchNoteDetails();

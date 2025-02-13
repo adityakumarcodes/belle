@@ -28,6 +28,7 @@
   }
   h3 {
     @apply text-4xl;
+    font-family: 'Bodoni Moda', serif;
   }
   h4 {
     @apply text-3xl;

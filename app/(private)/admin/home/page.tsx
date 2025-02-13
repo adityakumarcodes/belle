@@ -20,7 +20,7 @@ const Home = () => {
         }
     };
 
-    return <div className='flex p-2 flex-wrap'>
+    return <div className="grid grid-cols-2 gap-2 md:flex md:flex-nowrap">
             {options.map((op) => {
                 return <Link key={op.label} href={op.link} className="flex m-2 items-start gap-1.5 group hover:bg-gray-200 rounded-md p-1.5 cursor-pointer">
                     <op.icon strokeWidth={1.25} />

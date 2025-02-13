@@ -3,8 +3,9 @@ import { Poppins } from "next/font/google";
 import "../globals.css";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
+import ReactQueryProvider from "@/components/ReactQueryProvider";
 
-const font = Poppins({ subsets: ["latin"] ,weight:'300'});
+const font = Poppins({ subsets: ["latin"], weight: '300' });
 
 //static metadata
 export const metadata: Metadata = {
@@ -20,11 +21,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={font.className}>
-          <Header />
+        <Header />
+        <ReactQueryProvider>
           <div className="mt-16">
             {children}
           </div>
-          <Footer />
+        </ReactQueryProvider>
+        <Footer />
       </body>
     </html>
   );
