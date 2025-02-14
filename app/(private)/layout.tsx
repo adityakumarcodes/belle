@@ -5,7 +5,7 @@ import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "../globals.css";
 import MobileLayout from "@/components/MobileLayout";
-import ReactQueryProvider from "@/components/ReactQueryProvider";
+// import ReactQueryProvider from "@/components/ReactQueryProvider";
 
 const font = Poppins({ subsets: ["latin"], weight: '300' });
 
