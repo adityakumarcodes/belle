@@ -22,11 +22,11 @@ export default function RootLayout({
     <html lang="en">
       <body className={font.className}>
         <Header />
-        <ReactQueryProvider>
+        {/* <ReactQueryProvider> */}
           <div className="mt-16">
             {children}
           </div>
-        </ReactQueryProvider>
+        {/* </ReactQueryProvider> */}
         <Footer />
       </body>
     </html>

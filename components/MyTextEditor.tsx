@@ -77,27 +77,36 @@ const MyTextEditor: React.FC<EditorProps> = ({ initialData, id }) => {
     const [isReadOnly, setIsReadOnly] = useState(true);
 
     useEffect(() => {
-
-        const editor = new EditorJS({
-            holder: "editorjs",
-            tools: EDITOR_JS_TOOLS,
-            data: editorData || INITIAL_DATA,
-            onReady: () => {
-                console.log("Editor.js is ready to work!");
-                editorInstance.current = editor;
-            },
-            placeholder: "Type '/' for commands",
-            readOnly: isReadOnly,
-        });
-
-
+        initEditor();
         return () => {
-            if (editorInstance.current) {
+            if (editorInstance.current?.destroy) {
                 editorInstance.current?.destroy();
                 editorInstance.current = null;
             }
         };
-    }, [initialData, isReadOnly]);
+    }, [editorData, isReadOnly]);
+
+    const initEditor = () => {
+        if (!editorInstance.current) {
+            const editor = new EditorJS({
+                holder: "editorjs-container",
+                tools: EDITOR_JS_TOOLS,
+                data: editorData || INITIAL_DATA,
+                onReady: () => {
+                    console.log("Editor.js is ready to work!");
+                    editorInstance.current = editor;
+                },
+                // async onChange(api, event) {
+                // clearTimeout(autoSaveTimeout.current);
+                // autoSaveTimeout.current = setTimeout(() => {
+                //     handleSave();
+                // }, 5000);
+                // },
+                placeholder: "Type '/' for commands",
+                readOnly: isReadOnly,
+            });
+        }
+    }
 
     const extractHeader = (data: OutputData) => {
         const firstBlock = data['blocks']?.[0];
@@ -122,7 +131,6 @@ const MyTextEditor: React.FC<EditorProps> = ({ initialData, id }) => {
                 toast.success("Content saved successfully!");
             }
         }
-
         toggleReadOnly();
     };
 
@@ -133,7 +141,6 @@ const MyTextEditor: React.FC<EditorProps> = ({ initialData, id }) => {
             setIsReadOnly((prev) => !prev);
             console.log("Read-Only Mode:", !isReadOnly);
         }
-
     };
 
     return <div className="p-2 text-left">
@@ -143,7 +150,7 @@ const MyTextEditor: React.FC<EditorProps> = ({ initialData, id }) => {
         <button className="btn" onClick={toggleReadOnly}>
             {isReadOnly ? "Edit" : "Read"}
         </button>
-        <div className="px-2 py-2" id='editorjs' />
+        <div className="px-2 py-2" id='editorjs-container' />
         {/* <Image src='https://cdn.pixabay.com/photo/2023/07/31/16/37/sugar-apple-8161386_1280.jpg' alt={''} width={500} height={50} className='overflow-clip rounded-md object-fit m-6' /> */}
     </div>
 

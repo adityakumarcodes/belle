@@ -22,7 +22,7 @@ export default function AdminLayout({
 
     return <html lang="en">
         <body className={font.className}>
-            <ReactQueryProvider>
+            {/* <ReactQueryProvider> */}
                 <div>
                     <ToastContainer theme="light" position="bottom-right" />
                     {/* Desktop */}
@@ -39,7 +39,7 @@ export default function AdminLayout({
                         {children}
                     </MobileLayout>
                 </div>
-            </ReactQueryProvider>
+            {/* </ReactQueryProvider> */}
         </body>
     </html>;
 }

@@ -10,13 +10,6 @@
 - Motion : for animation
 - Replace axios with react query
 
-## Goals
-1. Landing page has animation,bento,3d,responsive
-2. Auth 
-3. Contact form
-4. Dark mode
-5. editorjs for image,code highlight;preview,draft,tags,edit existing blog
-
 
 each folder has
     unique id
