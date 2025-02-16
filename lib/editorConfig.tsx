@@ -33,7 +33,7 @@ export const EDITOR_JS_TOOLS = {
   image: {
     class: ImageTool as unknown as ToolConstructable,
     config: {
-      captionPlaceholder:'Add an alt text for the image',
+      captionPlaceholder: 'Add an alt text for the image',
       // endpoints: {
       //   byFile: 'http://localhost:8008/uploadFile', // Your backend file uploader endpoint
       //   byUrl: 'http://localhost:8008/fetchUrl', // Your endpoint that provides uploading by Url
@@ -89,11 +89,36 @@ export const EDITOR_JS_TOOLS = {
       }
     }
   },
-  delimiter: Delimiter as unknown as ToolConstructable,
+  delimiter: Delimiter,
   // linkTool: {
-  //   class: LinkTool,
+  //   class: LinkTool as unknown as ToolConstructable,
   //   config: {
-  //     endpoint: 'http://localhost:8008/fetchUrl',
+  //     endpoint: 'http://localhost:3000/api/link-preview',
+  //     uploader: {
+  //       uploadByUrl: async (url)=>{
+  //         const response = await fetch(url);
+  //         const html = await response.text();
+
+  //         // Load the HTML into cheerio
+  //         const $ = cheerio.load(html);
+
+  //         // Extract metadata
+  //         const title = $('meta[property="og:title"]').attr('content') || $('title').text();
+  //         const description = $('meta[property="og:description"]').attr('content') || $('meta[name="description"]').attr('content');
+  //         const image = $('meta[property="og:image"]').attr('content');
+
+  //         return {
+  //           success: 1,
+  //           meta: {
+  //             title: title || 'No title available',
+  //             description: description || 'No description available',
+  //             image: {
+  //               url: imageUrl,
+  //             },
+  //           },
+  //         };
+  //       }
+  //     }
   //   }
   // },
   // attaches: {
@@ -106,8 +131,11 @@ export const EDITOR_JS_TOOLS = {
   //   class: Embed,
   //   config: {
   //     services: {
-  //       youtube: true
+  //       youtube: true,
+  //       twitter: true,
+  //       github: true,
   //     }
   //   }
-  // }
+  // },
+  
 };

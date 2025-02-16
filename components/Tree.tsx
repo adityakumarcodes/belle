@@ -101,7 +101,7 @@ const Tree = () => {
     
 
     return <ul>
-        {loading?<Skeleton count={7}/>:folders?.map(folder => (
+        {loading?<Skeleton count={6}/>:folders?.map(folder => (
             <Folder key={folder.id} folder={folder} addFolder={addFolder}/>
         ))}
     </ul>;
