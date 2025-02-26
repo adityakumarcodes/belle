@@ -3,7 +3,7 @@ import { createClient } from "@/lib/supabase/client";
 import { ChevronRight, Plus, FileText, Pin } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import TextBubble from "./TextBubble";
+import HoverText from "./HoverText";
 import Skeleton from "./Skeleton";
 
 interface FolderType {
@@ -27,7 +27,7 @@ const Tree = () => {
     //     { name: 'Book3', folders: [] },
     // ];
     const [folders, setFolders] = useState<FolderType[] | null>(null);
-    const [loading, setLoading] = useState(true); 
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const fetchFolders = async () => {
@@ -69,18 +69,18 @@ const Tree = () => {
             title: "New Page",
             parent_id: parentId, // This makes it a child of the given folder
         };
-    
+
         const { data, error } = await supabase.from("notes").insert([newFolder]).select("*");
         if (error) {
             console.error("Error adding folder:", error.message);
             return;
         }
-    
+
         // Update state locally without refetching from the database
         setFolders(prevFolders => {
             if (!prevFolders) return null;
             const updatedFolders = [...prevFolders];
-    
+
             // Helper function to find and add the new folder in the right place
             const insertIntoTree = (folders: FolderType[]): FolderType[] => {
                 return folders.map(folder => {
@@ -92,17 +92,17 @@ const Tree = () => {
                     return folder;
                 });
             };
-    
+
             return parentId === null
                 ? [...updatedFolders, data[0]]
                 : insertIntoTree(updatedFolders);
         });
     };
-    
+
 
     return <ul>
-        {loading?<Skeleton count={6}/>:folders?.map(folder => (
-            <Folder key={folder.id} folder={folder} addFolder={addFolder}/>
+        {loading ? <Skeleton count={6} /> : folders?.map(folder => (
+            <Folder key={folder.id} folder={folder} addFolder={addFolder} />
         ))}
     </ul>;
 }
@@ -112,7 +112,7 @@ interface FolderProps {
     addFolder: (parentId: number | null) => void;
 }
 
-const Folder = ({ folder,addFolder }: FolderProps) => {
+const Folder = ({ folder, addFolder }: FolderProps) => {
     const [isOpen, setIsOpen] = useState(false);
 
     return <li className="ml-2" key={folder.title}>
@@ -125,16 +125,16 @@ const Folder = ({ folder,addFolder }: FolderProps) => {
                 </Link>
             </div>
             <div className="flex ">
-                <TextBubble msg="Pin" dir={"bottom"}>
+                <HoverText msg="Pin" dir={"bottom"}>
                     <Pin strokeWidth={1.5} className={`group-hover:opacity-100 opacity-0 m-1 text-gray-500 hover:bg-gray-300 rounded-md`} />
-                </TextBubble>
-                <TextBubble msg="Add a page inside" dir={"bottom"}>
-                    <Plus strokeWidth={1.5} className={`group-hover:opacity-100 opacity-0 m-1 text-gray-500 hover:bg-gray-300 rounded-md`}         onClick={() => addFolder(folder.id)}/>
-                </TextBubble>
+                </HoverText>
+                <HoverText msg="Add a page inside" dir={"bottom"}>
+                    <Plus strokeWidth={1.5} className={`group-hover:opacity-100 opacity-0 m-1 text-gray-500 hover:bg-gray-300 rounded-md`} onClick={() => addFolder(folder.id)} />
+                </HoverText>
             </div>
         </span>
         {isOpen && folder.folders && folder.folders.length === 0 && <p className="text-gray-400 ml-6">No pages inside</p>}
-        {isOpen && <ul>{folder.folders?.map(subFolder => <Folder folder={subFolder} key={subFolder.title} addFolder={addFolder}/>)}</ul>}
+        {isOpen && <ul>{folder.folders?.map(subFolder => <Folder folder={subFolder} key={subFolder.title} addFolder={addFolder} />)}</ul>}
     </li>;
 }
 

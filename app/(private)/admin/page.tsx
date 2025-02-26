@@ -1,5 +1,6 @@
-import IconButton from '@/components/IconButton'
-import { Heart, Lock, MessageSquareText, Trash2, Undo } from 'lucide-react'
+'use client'
+import HoverText from '@/components/HoverText'
+import { Heart, Lock, MessageSquareText, Trash2 } from 'lucide-react'
 import { Bodoni_Moda } from 'next/font/google'
 import Image from 'next/image'
 
@@ -7,47 +8,28 @@ const font = Bodoni_Moda({ subsets: ['latin'] })
 const BlogsPage = () => {
   const options = [
     { icon: Heart, title: 'Favourite' },
-    { icon: Undo, title: 'Undo' },
     { icon: Lock, title: 'Lock' },
     { icon: Trash2, title: 'Trash' },
+    { icon: MessageSquareText, title: 'Feedback' },
   ]
 
   return (
     <div className='flex flex-col h-screen overflow-y-scroll'>
       <div className='m-2 flex items-center justify-between'>
-        <nav className="text-gray-600 text-sm">
-          <ol className="list-reset flex">
-            <li>
-              <a href="#" className="hover:underline">Home</a>
-            </li>
-            <li>
-              <span className="mx-2 text-gray-400">/</span>
-            </li>
-            <li>
-              <a href="#" className="hover:underline">Category</a>
-            </li>
-            <li>
-              <span className="mx-2 text-gray-400">/</span>
-            </li>
-            <li className="text-gray-500">Current Page</li>
-          </ol>
-        </nav>
-        <div className='flex space-x-4 ml-6 flex-wrap'>
+        <div className='flex space-x-4 ml-6 flex-wrap gap-3 mt-2'>
           {options.map((op) => (
             <span
               className='flex items-center gap-1.5 group hover:bg-gray-200 rounded-md p-1.5 cursor-pointer'
               key={op.title}
             >
-              <op.icon className="w-5 h-5 text-gray-600 group-hover:text-black" />
-              <p className="text-gray-700 group-hover:text-black select-none">{op.title}</p>
+              <HoverText msg={op.title} dir={"bottom"}>
+                <op.icon className="w-5 h-5 text-gray-600 group-hover:text-black" />
+              </HoverText>
             </span>
           ))}
         </div>
       </div>
 
-      <div className='flex m-4'>
-        <IconButton title='Add comment' icon={MessageSquareText} href={''} />
-      </div>
       <div className='m-4 p-2'>
         <p className={`text-6xl m-4 ${font.className}`}>5 🔑s to a longer life </p>
         <p>

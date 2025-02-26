@@ -22,24 +22,29 @@ export default function AdminLayout({
 
     return <html lang="en">
         <body className={font.className}>
-            {/* <ReactQueryProvider> */}
-                <div>
-                    <ToastContainer theme="light" position="bottom-right" />
-                    {/* Desktop */}
-                    <div className="hidden md:block">
-                        <div className='flex flex-col bg-gray-50 w-64 p-1.5 fixed h-screen rounded-md'>
-                            <Sidebar />
-                        </div>
-                        <div className="ml-64">
-                            {children}
-                        </div>
-                    </div>
-                    {/* Mobile */}
-                    <MobileLayout>
-                        {children}
-                    </MobileLayout>
+            <div className="relative">
+                <ToastContainer theme="light" position="bottom-right" />
+
+                {/* Desktop Sidebar */}
+                <div className='hidden md:flex flex-col bg-gray-50 w-64 p-1.5 fixed h-screen rounded-md'>
+                    <Sidebar />
                 </div>
-            {/* </ReactQueryProvider> */}
+
+                {/* Content Area - Both Mobile & Desktop */}
+                <div className="md:ml-64 min-h-screen">
+                    {/* Desktop View */}
+                    <div className="hidden md:block">
+                        {children}
+                    </div>
+
+                    {/* Mobile View */}
+                    <div className="block md:hidden">
+                        <MobileLayout>
+                            {children}
+                        </MobileLayout>
+                    </div>
+                </div>
+            </div>
         </body>
     </html>;
 }

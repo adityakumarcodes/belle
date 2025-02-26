@@ -3,9 +3,11 @@ import dynamic from 'next/dynamic';
 const MyTextEditor = dynamic(() => import("@/components/MyTextEditor"), { ssr: false });
 import { useEffect, useState } from 'react';
 import { createClient } from '@/lib/supabase/client';
-import { useParams } from 'next/navigation';
+import { redirect, useParams } from 'next/navigation';
 import { OutputData } from '@editorjs/editorjs';
-import ThreeDotMenu from '@/components/ThreeDotMenu';
+import { MessageSquareText } from 'lucide-react';
+import { Heart, Trash2, Lock } from 'lucide-react';
+import HoverText from '@/components/HoverText';
 
 const NoteDetails = () => {
   const params = useParams();
@@ -14,6 +16,12 @@ const NoteDetails = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  const options = [
+    { icon: Heart, title: 'Favourite' },
+    { icon: Lock, title: 'Lock' },
+    { icon: Trash2, title: 'Trash', onClick: () => deleteNote(Number(id)) },
+    { icon: MessageSquareText, title: 'Feedback' },
+  ]
   useEffect(() => {
     if (!id) return;
 
@@ -37,31 +45,40 @@ const NoteDetails = () => {
     fetchNoteDetails();
   }, [id]);
 
+  const deleteNote = async (id: number) => {
+    const supabase = createClient();
+    const { error } = await supabase
+      .from('notes')
+      .update({ status_flag: 'expired' })
+      .eq('id', id);
+
+    if (error) {
+      console.error("Error restoring item:", error.message);
+    } else {
+      console.log(`Note deleted successfully ${id}`);
+      redirect('/admin/trash');
+    }
+  };
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
 
   return (
     <div className='flex flex-col h-screen overflow-y-scroll'>
-      <div className='m-2 md:flex items-center justify-between hidden'>
-        <nav className="text-gray-600 text-sm">
-          <ol className="list-reset flex">
-            <li>
-              <a href="#" className="hover:underline">Home</a>
-            </li>
-            <li>
-              <span className="mx-2 text-gray-400">/</span>
-            </li>
-            <li>
-              <a href="#" className="hover:underline">Category</a>
-            </li>
-            <li>
-              <span className="mx-2 text-gray-400">/</span>
-            </li>
-            <li className="text-gray-500">Current Page</li>
-          </ol>
-        </nav>
-        <ThreeDotMenu />
+      <div className='m-2 flex items-center justify-between'>
+        <div className='flex space-x-4 ml-6 flex-wrap gap-3 mt-2'>
+          {options.map((op) => (
+            <span
+              className='flex items-center gap-1.5 group hover:bg-gray-200 rounded-md p-1.5 cursor-pointer'
+              key={op.title}
+              onClick={op.onClick}
+            >
+              <HoverText msg={op.title} dir={"bottom"}>
+                <op.icon className="w-5 h-5 text-gray-600 group-hover:text-black" />
+              </HoverText>
+            </span>
+          ))}
+        </div>
       </div>
       <MyTextEditor initialData={data} id={Number(id)} />
     </div>

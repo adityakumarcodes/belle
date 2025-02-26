@@ -3,10 +3,11 @@ import Paragraph from "@editorjs/paragraph";
 import Header from "@editorjs/header";
 import EditorjsList from "@editorjs/list";
 import Delimiter from '@editorjs/delimiter';
-import { ToolConstructable } from "@editorjs/editorjs";
 import ImageTool from "@editorjs/image";
 import { createClient } from "./supabase/client";
+import { ToolConstructable } from "@editorjs/editorjs";
 // import LinkTool from '@editorjs/link';
+// import * as cheerio from 'cheerio';
 // import AttachesTool from '@editorjs/attaches';
 
 export const EDITOR_JS_TOOLS = {
@@ -39,7 +40,7 @@ export const EDITOR_JS_TOOLS = {
       //   byUrl: 'http://localhost:8008/fetchUrl', // Your endpoint that provides uploading by Url
       // },
       uploader: {
-        uploadByFile: async (file:File) => {
+        uploadByFile: async (file: File) => {
           console.log('uploading');
           const supabase = createClient();
           const fileName = `/images/${file.name}`;
@@ -64,7 +65,7 @@ export const EDITOR_JS_TOOLS = {
             file: { url: publicUrlData.publicUrl },
           };
         },
-        uploadByUrl: async (url:string) => {
+        uploadByUrl: async (url: string) => {
           const response = await fetch(url);
           const file = await response.blob();
           const fileName = url.split('/').pop();
@@ -89,13 +90,13 @@ export const EDITOR_JS_TOOLS = {
       }
     }
   },
-  delimiter: Delimiter,
+  delimiter: Delimiter as unknown as ToolConstructable,
   // linkTool: {
   //   class: LinkTool as unknown as ToolConstructable,
   //   config: {
   //     endpoint: 'http://localhost:3000/api/link-preview',
   //     uploader: {
-  //       uploadByUrl: async (url)=>{
+  //       uploadByUrl: async (url) => {
   //         const response = await fetch(url);
   //         const html = await response.text();
 
@@ -137,5 +138,5 @@ export const EDITOR_JS_TOOLS = {
   //     }
   //   }
   // },
-  
+
 };

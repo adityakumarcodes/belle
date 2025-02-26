@@ -1,13 +1,13 @@
 import * as  Tooltip from "@radix-ui/react-tooltip";
 import { ReactNode } from "react";
 
-interface TextBubbleProps {
+interface HoverTextProps {
     children: ReactNode;
     msg: string;
-    dir:'top'|'bottom'|'right'|'left';
+    dir: 'top' | 'bottom' | 'right' | 'left';
 }
 
-const TextBubble: React.FC<TextBubbleProps> = ({ children, msg,dir }) => {
+const HoverText: React.FC<HoverTextProps> = ({ children, msg, dir }) => {
     return <Tooltip.Provider>
         <Tooltip.Root>
             <Tooltip.Trigger >
@@ -23,4 +23,4 @@ const TextBubble: React.FC<TextBubbleProps> = ({ children, msg,dir }) => {
 
 }
 
-export default TextBubble
+export default HoverText

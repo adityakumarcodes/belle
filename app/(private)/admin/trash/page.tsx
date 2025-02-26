@@ -1,5 +1,4 @@
 'use client'
-import TextBubble from '@/components/TextBubble';
 import { createClient } from '@/lib/supabase/client';
 import { Undo2 } from 'lucide-react';
 import { useEffect, useState } from 'react';
@@ -24,6 +23,9 @@ const TrashPage = () => {
 
         if (error) {
             console.error("Error restoring item:", error.message);
+        } else {
+            // Refresh the list after restoration
+            setTrashData(trashData?.filter(item => item.id !== id) || null);
         }
     };
     useEffect(() => {
@@ -39,16 +41,32 @@ const TrashPage = () => {
         fetchDeletedItems();
     }, [])
 
-    return <div className="m-2 p-2">
-        {loading ? <h3>Loading...</h3> : trashData?.map((a) => (
-            <div key={a.id} className='flex justify-center border-2 border-black rounded-md p-2 hover:bg-gray-200 m-2'>
-                <div>{JSON.stringify(a,null, 2)}</div>
-                <TextBubble msg="Restore" dir={"bottom"}>
-                    <Undo2 className='opacity-100 m-1 text-gray-500 hover:bg-gray-300 rounded-md' onClick={()=>restoreItem(a.id)}/>
-                </TextBubble>
-            </div>
-        ))}
-    </div>;
-}
+    return (
+        <div className="container mx-auto p-4">
+            {loading ? (
+                <div className="flex justify-center">
+                    Loading...
+                </div>
+            ) : (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    {trashData?.map((item) => (
+                        <div key={item.id} className="border rounded-lg p-4 hover:bg-gray-200 cursor-pointer">
+                            <div className="flex justify-between items-center">
+                                <h4 className="font-medium">{item.title}</h4>
+                                <button
+                                    onClick={() => restoreItem(item.id)}
+                                    className="p-2 hover:bg-gray-300 rounded-full"
+                                    title="Restore Item"
+                                >
+                                    <Undo2 size={18} />
+                                </button>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            )}
+        </div>
+    );
+};
 
 export default TrashPage
