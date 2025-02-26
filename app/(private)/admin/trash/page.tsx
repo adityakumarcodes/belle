@@ -52,7 +52,7 @@ const TrashPage = () => {
                     {trashData?.map((item) => (
                         <div key={item.id} className="border rounded-lg p-4 hover:bg-gray-200 cursor-pointer">
                             <div className="flex justify-between items-center">
-                                <h4 className="font-medium">{item.title}</h4>
+                                <h6>{item.title}</h6>
                                 <button
                                     onClick={() => restoreItem(item.id)}
                                     className="p-2 hover:bg-gray-300 rounded-full"
