@@ -2,7 +2,6 @@
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import Sidebar from "./Sidebar";
-import ThreeDotMenu from "./ThreeDotMenu";
 import { motion } from "motion/react";
 
 export default function MobileLayout({ children }: { children: React.ReactNode }) {
@@ -14,7 +13,6 @@ export default function MobileLayout({ children }: { children: React.ReactNode }
             <button onClick={() => setIsOpen(!isOpen)}>
                 {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
-            <ThreeDotMenu />
         </div>
 
         {/* ListView */}

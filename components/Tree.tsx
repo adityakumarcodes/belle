@@ -154,7 +154,7 @@ const Folder = ({ folder, addFolder }: FolderProps) => {
             <div className="flex gap-1.5 items-center">
                 <ChevronRight strokeWidth={1.25} onClick={() => setIsOpen(!isOpen)} className={`ml-1 transition-transform duration-200 group-hover:inline hidden m-1 text-gray-500 hover:bg-gray-300 rounded-md ${isOpen ? 'rotate-90' : ''}`} />
                 {folder.folders && folder.folders.length === 0 ? <FileText strokeWidth={1.25} className="text-gray-500 inline group-hover:hidden ml-2 w-6 h-6 " /> : <p className="ml-2 w-6 h-6 inline group-hover:hidden">🧠</p>}
-                <Link href={`/admin/notes/${folder.id}`}>
+                <Link href={`/admin/notebook/${folder.id}`}>
                     <p className="line-clamp-1 select-none">{folder.title}</p>
                 </Link>
             </div>

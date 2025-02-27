@@ -1,7 +1,7 @@
 'use client'
 import Link from 'next/link'
 import Tree from './Tree'
-import { BookOpen, HardDrive, House, Plus, Search, Trash2, ChevronDown, Bolt } from 'lucide-react'
+import { BookOpen, HardDrive, House, Plus, Search, Trash2, ChevronDown, Bolt, Calendar } from 'lucide-react'
 import { useState } from 'react'
 import HoverText from './HoverText'
 
@@ -18,14 +18,15 @@ const Sidebar = () => {
 
     const menuItems: MenuItem[] = [
         { label: 'Home', icon: House, link: '/admin/home' },
-        { label: 'Search', icon: Search, link: '/admin/' },
-        { label: 'My Files', icon: HardDrive, link: '/admin/' },
+        { label: 'Search', icon: Search, link: '/admin/search' },
+        { label: 'MyDrive', icon: HardDrive, link: '/admin/mydrive' },
         {
-            label: 'Notes',
+            label: 'Notebook',
             icon: BookOpen,
             link: '/admin/',
             isAccordion: true,
-        }
+        },
+        { label: 'Calendar', icon: Calendar, link: '/admin/calender' },
     ]
 
     return (
