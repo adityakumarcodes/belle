@@ -7,7 +7,6 @@ import { redirect, useParams } from 'next/navigation';
 import { OutputData } from '@editorjs/editorjs';
 import { MessageSquareText } from 'lucide-react';
 import { Heart, Trash2, Lock } from 'lucide-react';
-import HoverText from '@/components/HoverText';
 
 const NoteDetails = () => {
   const params = useParams();
@@ -73,9 +72,8 @@ const NoteDetails = () => {
               key={op.title}
               onClick={op.onClick}
             >
-              <HoverText msg={op.title} dir={"bottom"}>
-                <op.icon className="w-5 h-5 text-gray-600 group-hover:text-black" />
-              </HoverText>
+              <op.icon className="w-5 h-5 text-gray-600 group-hover:text-black" />
+              <p>{op.title}</p>
             </span>
           ))}
         </div>

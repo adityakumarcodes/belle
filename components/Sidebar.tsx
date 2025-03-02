@@ -1,32 +1,38 @@
 'use client'
 import Link from 'next/link'
 import Tree from './Tree'
-import { BookOpen, HardDrive, House, Plus, Search, Trash2, ChevronDown, Bolt, Calendar } from 'lucide-react'
+import { BookOpen, HardDrive, House, Plus, Search, Trash2, ChevronDown, Bolt } from 'lucide-react'
 import { useState } from 'react'
 import HoverText from './HoverText'
 
-type MenuItem = {
+type BaseMenuItem = {
     icon: React.ElementType;
     label: string;
-    link: string;
-    isAccordion?: boolean;
 };
 
+type LinkMenuItem = BaseMenuItem & {
+    type: 'link';
+    link: string;
+};
+
+type AccordionMenuItem = BaseMenuItem & {
+    type: 'accordion';
+};
+
+type MenuItem = LinkMenuItem | AccordionMenuItem;
 
 const Sidebar = () => {
     const [isOpen, setIsOpen] = useState(false);
 
     const menuItems: MenuItem[] = [
-        { label: 'Home', icon: House, link: '/admin/home' },
-        { label: 'Search', icon: Search, link: '/admin/search' },
-        { label: 'MyDrive', icon: HardDrive, link: '/admin/mydrive' },
+        { type: 'link', label: 'Home', icon: House, link: '/admin/home' },
+        { type: 'link', label: 'Search', icon: Search, link: '/admin/search' },
+        { type: 'link', label: 'My Drive', icon: HardDrive, link: '/admin/mydrive' },
         {
+            type: 'accordion',
             label: 'Notebook',
             icon: BookOpen,
-            link: '/admin/',
-            isAccordion: true,
         },
-        { label: 'Calendar', icon: Calendar, link: '/admin/calender' },
     ]
 
     return (
@@ -34,7 +40,7 @@ const Sidebar = () => {
             <div className="flex-grow">
                 {menuItems.map((item, index) => (
                     <div key={index}>
-                        {item.isAccordion ? (
+                        {item.type === 'accordion' ? (
                             <div>
                                 <div
                                     onClick={() => setIsOpen(!isOpen)}
@@ -65,7 +71,7 @@ const Sidebar = () => {
 
             <div className="mt-auto pb-4 ">
                 <hr className="border-t-2 border-gray-300 my-2" />
-                <Link href="/admin/" className="flex items-start gap-1.5 group hover:bg-gray-200 rounded-md p-1.5 cursor-pointer">
+                <Link href="/admin/settings" className="flex items-start gap-1.5 group hover:bg-gray-200 rounded-md p-1.5 cursor-pointer">
                     <Bolt strokeWidth={1.25} />
                     <p>Settings</p>
                 </Link>

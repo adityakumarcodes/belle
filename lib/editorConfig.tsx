@@ -123,13 +123,13 @@ export const EDITOR_JS_TOOLS = {
   //   }
   // },
   // attaches: {
-  //   class: AttachesTool,
+  //   class: AttachesTool as unknown as ToolConstructable,
   //   config: {
   //     endpoint: 'http://localhost:8008/uploadFile'
   //   }
   // },
   // embed: {
-  //   class: Embed,
+  //   class: Embed as unknown as ToolConstructable,
   //   config: {
   //     services: {
   //       youtube: true,

@@ -1,5 +1,4 @@
 'use client'
-import HoverText from '@/components/HoverText'
 import { Heart, Lock, MessageSquareText, Trash2 } from 'lucide-react'
 import { Bodoni_Moda } from 'next/font/google'
 import Image from 'next/image'
@@ -22,9 +21,8 @@ const BlogsPage = () => {
               className='flex items-center gap-1.5 group hover:bg-gray-200 rounded-md p-1.5 cursor-pointer'
               key={op.title}
             >
-              <HoverText msg={op.title} dir={"bottom"}>
-                <op.icon className="w-5 h-5 text-gray-600 group-hover:text-black" />
-              </HoverText>
+              <op.icon className="w-5 h-5 text-gray-600 group-hover:text-black" />
+              <p>{op.title}</p>
             </span>
           ))}
         </div>
