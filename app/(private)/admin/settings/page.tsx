@@ -1,6 +1,6 @@
 'use client'
 import * as Tabs from '@radix-ui/react-tabs'
-import { UserIcon, Settings2Icon, VenetianMask, CloudUpload } from 'lucide-react'
+import { UserIcon, Settings2Icon, VenetianMask, CloudUpload, Feather } from 'lucide-react'
 
 const SETTINGS_TABS = [
     {
@@ -21,10 +21,7 @@ const SETTINGS_TABS = [
         icon: Settings2Icon,
         content: {
             title: 'Preferences',
-            component: () => (
-                /* Add preferences form here */
-                <div>{/* Preferences form content */}</div>
-            ),
+            component: () => <div>{/* Preferences form content */}</div>,
         },
     },
     {
@@ -33,9 +30,7 @@ const SETTINGS_TABS = [
         icon: CloudUpload,
         content: {
             title: 'Backup',
-            component: () => (
-                <div>{/* Backup settings form content */}</div>
-            ),
+            component: () => <div>{/* Preferences form content */}</div>,
         },
     },
     {
@@ -44,9 +39,16 @@ const SETTINGS_TABS = [
         icon: VenetianMask,
         content: {
             title: 'Secrets',
-            component: () => (
-                <div>{/* Secrets management form content */}</div>
-            ),
+            component: () => <div>{/* Preferences form content */}</div>,
+        },
+    },
+    {
+        value: 'blogs',
+        label: 'Blogs',
+        icon: Feather,
+        content: {
+            title: 'Blogs',
+            component: () => <div>{/* Preferences form content */}</div>,
         },
     },
 ] as const

@@ -1,6 +1,5 @@
 import Sidebar from "@/components/Sidebar";
 import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "../globals.css";
@@ -23,27 +22,35 @@ export default function AdminLayout({
     return <html lang="en">
         <body className={font.className}>
             <div className="relative">
-                <ToastContainer theme="light" position="bottom-right" />
-
+                <ToastContainer
+                    position="top-center"
+                    autoClose={3000}
+                    hideProgressBar
+                    newestOnTop
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable={false}
+                    pauseOnHover
+                    theme="light"
+                />
                 {/* Desktop Sidebar */}
-                <div className='hidden md:flex flex-col bg-gray-50 w-64 p-1.5 fixed h-screen rounded-md'>
+                <div className='hidden md:flex flex-col bg-gray-50 w-56 p-1.5 fixed h-screen rounded-md'>
                     <Sidebar />
                 </div>
 
                 {/* Content Area - Both Mobile & Desktop */}
-                <div className="md:ml-64 min-h-screen">
+                <>
                     {/* Desktop View */}
-                    <div className="hidden md:block">
+                    <div className="hidden md:block md:ml-56 min-h-screen">
                         {children}
                     </div>
 
                     {/* Mobile View */}
-                    <div className="block md:hidden">
-                        <MobileLayout>
-                            {children}
-                        </MobileLayout>
-                    </div>
-                </div>
+                    <MobileLayout>
+                        {children}
+                    </MobileLayout>
+                </>
             </div>
         </body>
     </html>;

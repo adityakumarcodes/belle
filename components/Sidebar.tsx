@@ -1,7 +1,7 @@
 'use client'
 import Link from 'next/link'
 import Tree from './Tree'
-import { BookOpen, HardDrive, House, Plus, Search, Trash2, ChevronDown, Bolt } from 'lucide-react'
+import { BookOpen, House, Plus, Search, Trash2, ChevronDown, Bolt, HardDrive, ArrowUpRight } from 'lucide-react'
 import { useState } from 'react'
 import HoverText from './HoverText'
 
@@ -28,11 +28,7 @@ const Sidebar = () => {
         { type: 'link', label: 'Home', icon: House, link: '/admin/home' },
         { type: 'link', label: 'Search', icon: Search, link: '/admin/search' },
         { type: 'link', label: 'My Drive', icon: HardDrive, link: '/admin/mydrive' },
-        {
-            type: 'accordion',
-            label: 'Notebook',
-            icon: BookOpen,
-        },
+        { type: 'accordion', label: 'Notebook', icon: BookOpen },
     ]
 
     return (
@@ -71,6 +67,10 @@ const Sidebar = () => {
 
             <div className="mt-auto pb-4 ">
                 <hr className="border-t-2 border-gray-300 my-2" />
+                <Link href="/" target="_blank" className="flex items-start gap-1.5 group hover:bg-gray-200 rounded-md p-1.5 cursor-pointer">
+                    <ArrowUpRight strokeWidth={1.25} />
+                    <p>Go to Home</p>
+                </Link>
                 <Link href="/admin/settings" className="flex items-start gap-1.5 group hover:bg-gray-200 rounded-md p-1.5 cursor-pointer">
                     <Bolt strokeWidth={1.25} />
                     <p>Settings</p>
